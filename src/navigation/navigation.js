@@ -3,10 +3,11 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import DashBoardScreen from "../screens/DashBoardScreen";
 import HomeScreen from "../../HomeScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Image } from "react-native";
+import { Image, View } from "react-native";
 import Statitics from "../screens/Statitics";
 import Profile from "../screens/Profile";
 import Transaction from "../screens/Transaction";
+import AddTransactionScreen from "../screens/AddTransactionScreen";
 
 const Stack = createNativeStackNavigator()
 const BottomStack = createBottomTabNavigator()
@@ -22,18 +23,34 @@ const Navigation = () => {
     )
 }
 
-const BottomTab = () => {
+const BottomTab = ({ navigation, route }) => {
+    // Get the current route name
+    const routeName = route.state
+        ? route.state.routes[route.state.index].name
+        : route.params?.screen || 'DashBoard'; // Default route
     return (
-        <BottomStack.Navigator>
+        <BottomStack.Navigator screenOptions={({ route }) => ({
+            tabBarStyle: ((routeName === 'AddTransaction') ? { display: 'none' } : {})
+        })}>
             <BottomStack.Screen name="DashBoard" component={DashBoardScreen} options={{
                 headerShown: false, tabBarIcon: () => (
                     <Image source={require('../../assets/images/home.png')} style={{ width: 20, height: 20 }}></Image>
                 ), tabBarLabel: 'Home'
             }} />
             <BottomStack.Screen name="Transaction" component={Transaction} options={{
-                headerShown: false, tabBarIcon: () => (
+                tabBarIcon: () => (
                     <Image source={require('../../assets/images/transaction.png')} style={{ width: 20, height: 20 }}></Image>
                 ), tabBarLabel: 'Transaction'
+            }} />
+            <BottomStack.Screen name="AddTransaction" component={AddTransactionScreen} options={{
+                tabBarIcon: ({ focused }) => (
+                    <View style={{ backgroundColor: '#A89696', width: 70, height: 70, borderRadius: 50, alignItems: 'center', justifyContent: 'center' }}>
+                        <View style={{ backgroundColor: '#7F3DFF', width: 50, height: 50, borderRadius: 50, justifyContent: 'center' }}>
+                            <Image source={require('../../assets/images/add.png')} style={{ width: 25, height: 25, tintColor: focused ? 'white' : 'white', alignSelf: 'center' }}></Image>
+                        </View>
+                    </View>
+
+                ), tabBarLabel: '',
             }} />
             <BottomStack.Screen name="Stats" component={Statitics} options={{
                 headerShown: false, tabBarIcon: () => (

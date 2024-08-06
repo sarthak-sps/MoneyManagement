@@ -165,7 +165,7 @@ const RecentTransaction = () => {
             <View style={{ flexDirection: 'row' , alignItems:'center',}}>
               <Image source={getCategoryImage(item.category)} style={{ width: 38, height: 41, marginRight: 10 }} />
               <Image source={require('../../assets/images/bi_currency-rupee.png')}></Image>
-              <Text style={{fontSize:22}}>{`${item.amount}`}</Text>
+              <Text style={{fontSize:22,color:'black'}}>{`${item.amount}`}</Text>
             </View>
             <Text style={{verticalAlign:'middle',fontSize:15}}>{item.category}</Text>
           </View>
