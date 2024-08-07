@@ -43,6 +43,7 @@ const BottomTab = ({ navigation, route }) => {
                 ), tabBarLabel: 'Transaction'
             }} />
             <BottomStack.Screen name="AddTransaction" component={AddTransactionScreen} options={{
+                headerShown: true,
                 tabBarIcon: ({ focused }) => (
                     <View style={{ backgroundColor: '#A89696', width: 70, height: 70, borderRadius: 50, alignItems: 'center', justifyContent: 'center' }}>
                         <View style={{ backgroundColor: '#7F3DFF', width: 50, height: 50, borderRadius: 50, justifyContent: 'center' }}>
@@ -51,11 +52,14 @@ const BottomTab = ({ navigation, route }) => {
                     </View>
 
                 ), tabBarLabel: '',
+                headerTitle: 'Add Transaction'
             }} />
             <BottomStack.Screen name="Stats" component={Statitics} options={{
                 headerShown: false, tabBarIcon: () => (
                     <Image source={require('../../assets/images/pie-chart.png')} style={{ width: 20, height: 20 }}></Image>
-                ), tabBarLabel: 'Statitics'
+                ), tabBarLabel: 'Statitics',
+                headerTitle:'Financial Report',
+                headerShown:true
             }} />
             <BottomStack.Screen name="Profile" component={Profile} options={{
                 headerShown: false, tabBarIcon: () => (

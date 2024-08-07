@@ -102,103 +102,115 @@ const FilterComponent = () => {
 const Filterresult = () => {
   const transactions = [
     {
-      category: 'Food',
+      category: 'Shopping',
       description: 'Lunch at restaurant',
-      amount: 25.00,
+      amount: 5120,
       time: '2024-08-06T12:00:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Transportation',
       description: 'Bus fare',
-      amount: 2.50,
+      amount: 250,
       time: '2024-08-06T08:30:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Entertainment',
       description: 'Movie ticket',
-      amount: 15.00,
+      amount: 1500,
       time: '2024-08-05T19:00:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Groceries',
       description: 'Weekly groceries',
-      amount: 60.00,
+      amount: 6000,
       time: '2024-08-05T17:00:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Utilities',
       description: 'Electricity bill',
-      amount: 45.00,
+      amount: 4500,
       time: '2024-08-04T15:00:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Health',
       description: 'Pharmacy purchase',
-      amount: 20.00,
+      amount: 2000,
       time: '2024-08-03T14:00:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Rent',
       description: 'Monthly rent payment',
-      amount: 1200.00,
+      amount: 120000,
       time: '2024-08-01T10:00:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Fitness',
       description: 'Gym membership',
-      amount: 50.00,
+      amount: 5000,
       time: '2024-08-01T09:00:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Insurance',
       description: 'Car insurance payment',
-      amount: 100.00,
+      amount: 10000,
       time: '2024-07-30T11:00:00Z',
       transactionType: 'expense'
     },
     {
       category: 'Savings',
       description: 'Monthly savings deposit',
-      amount: 200.00,
+      amount: 20000,
       time: '2024-07-30T08:00:00Z',
       transactionType: 'income'
     },
     {
       category: 'Salary',
       description: 'Monthly salary',
-      amount: 3000.00,
+      amount: 300000,
       time: '2024-08-01T09:00:00Z',
       transactionType: 'income'
     },
     {
       category: 'Investment',
       description: 'Stock dividends',
-      amount: 150.00,
+      amount: 15000,
       time: '2024-07-25T10:00:00Z',
       transactionType: 'income'
     }
   ];
-
+  const formatTime = (timeString) => {
+    const date = new Date(timeString);
+    return date.toLocaleTimeString('en-US', {
+      hour: 'numeric',
+      minute: 'numeric',
+      hour12: true,
+    });
+  };
 
   return (
     <View>
       <FlatList
         data={transactions}
+        keyExtractor={(item, index) => index.toString()} 
+        contentContainerStyle={{ paddingBottom: 50 }} 
         renderItem={({ item }) => (
-          <View style={{ flexDirection: 'row', height: 90, backgroundColor: 'white', margin: 10, borderRadius: 24 }}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' , width:'100%'}}>
-              <Text>{item.category}</Text>
-              <Text>{item.amount}</Text>
+          <View style={{ flexDirection: 'row', justifyContent:'space-between',height: 90, backgroundColor: 'white', margin: 10, borderRadius: 24 }}>
+            <View style={{ flexDirection: 'column' ,margin:20,justifyContent: 'space-between'}}>
+              <Text style={{fontSize:22}}>{item.category}</Text>
+              <Text style={{ fontSize:16,fontWeight:600}}>{item.description}</Text>
             </View>
-
+            <View style={{ flexDirection: 'column', justifyContent: 'space-between'  ,margin:20}}>
+              <Text style={{fontSize:20,fontWeight:600, color:item.transactionType==='expense'?'red':'green'}}> {item.transactionType === 'expense' ? '-' : '+'}{item.amount}</Text>
+              <Text style={{ fontSize:13,fontWeight:600}}>{formatTime(item.time)}</Text>
+            </View>
           </View>
         )}
       >
