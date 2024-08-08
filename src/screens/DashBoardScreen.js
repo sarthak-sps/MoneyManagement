@@ -23,7 +23,7 @@ const UpperComponent = () => {
           <View style={styles.imageWrapper}>
             <Image style={styles.profileImage} source={require('../../assets/images/applogo.png')} />
           </View>
-          <Text style={styles.profileName}>VISHNU</Text>
+          <Text style={styles.profileName}>Sarthak</Text>
         </View>
       </View>
       <View style={styles.divider} />
@@ -208,6 +208,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 14,
     verticalAlign: 'middle',
+    alignSelf:'center',
   },
   divider: {
     borderBottomColor: 'black',

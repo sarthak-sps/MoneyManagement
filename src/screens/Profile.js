@@ -10,7 +10,7 @@ const Profile = () => {
         </View>
         <View style={styles.userInfo}>
           <Text style={styles.usernameText}>Username</Text>
-          <Text style={styles.nameText}>Vishnu P V</Text>
+          <Text style={styles.nameText}>Sarthak Srivastava</Text>
         </View>
         <Image source={require('../../assets/images/edit.png')} />
       </View>
@@ -20,14 +20,17 @@ const Profile = () => {
           <Image source={require('../../assets/images/account.png')} />
           <Text style={styles.optionText}>Account</Text>
         </TouchableOpacity>
+        <View style={styles.divider}></View>
         <TouchableOpacity style={styles.option}>
           <Image source={require('../../assets/images/setting.png')} />
           <Text style={styles.optionText}>Settings</Text>
         </TouchableOpacity>
+        <View style={styles.divider}></View>
         <TouchableOpacity style={styles.option}>
           <Image source={require('../../assets/images/exportData.png')} />
           <Text style={styles.optionText}>Export Data</Text>
         </TouchableOpacity>
+        <View style={styles.divider}></View>
         <TouchableOpacity style={styles.option}>
           <Image source={require('../../assets/images/logout.png')} />
           <Text style={styles.optionText}>Logout</Text>
@@ -94,5 +97,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'black',
     fontWeight: '500',
+  },
+  divider: {
+    borderBottomColor: '#D3D3D3',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginHorizontal: 10,
   },
 });

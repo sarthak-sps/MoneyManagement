@@ -1,41 +1,65 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Calendar } from 'react-native-calendars';
+import { useDispatch } from 'react-redux';
+import { addTransaction } from '../redux/actions';
 
 const AddTransactionScreen = () => {
     const [category, setCategory] = useState(null);
     const [description, setDescription] = useState(null);
     const [calendarOpen, setCalendarOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(" ");
+    const [transactionType, setTransactionType] = useState(" ");
+    const [ amount , setAmount] = useState('')
 
-    const data = [
-        { label: 'Item 1', value: '1' },
-        { label: 'Item 2', value: '2' },
-        { label: 'Item 3', value: '3' },
-        { label: 'Item 4', value: '4' },
-        { label: 'Item 5', value: '5' },
-        { label: 'Item 6', value: '6' },
-        { label: 'Item 7', value: '7' },
-        { label: 'Item 8', value: '8' },
+    const categoryList = [
+        { label: 'Shopping', value: 'shopping' },
+        { label: 'Salary', value: 'salary' },
+        { label: 'Food', value: 'food' },
+        { label: 'Outing', value: 'outing' }
+    ];
+
+
+    const descriptionList = [
+        { label: 'Buy some grocery', value: 'Buy some grocery' },
+        { label: 'Arabian hut', value: 'Arabian hut' },
+        { label: 'Salary for august', value: 'Salary for august' },
+        { label: 'Outing', value: 'outing' }
     ];
 
     useEffect(() => {
         setSelectedDate(" ");
     }, []);
+    const dispatch = useDispatch()
+
+    const handleAddTransaction = () => {
+        const transaction = {
+            category,
+            description,
+            transactionType,
+            amount,
+            date: selectedDate,
+        };
+        dispatch(addTransaction(transaction))
+        console.log(transaction)
+    };
 
     return (
         <ScrollView style={styles.container}>
             <View style={styles.innerContainer}>
                 <View style={styles.amountContainer}>
                     <Text style={styles.amountLabel}>How Much?</Text>
-                    <Text style={styles.amount}>₹ 55698</Text>
+                    <TextInput style={styles.amount}
+                    onChangeText={setAmount}
+                    value= {amount}
+                    ></TextInput>
                 </View>
                 <View style={styles.formContainer}>
                     <View style={styles.dropdownContainer}>
                         <Dropdown
                             mode='default'
-                            data={data}
+                            data={categoryList}
                             labelField="label"
                             placeholder='Category'
                             onChange={item => setCategory(item.value)}
@@ -46,7 +70,7 @@ const AddTransactionScreen = () => {
                     <View style={styles.dropdownContainer}>
                         <Dropdown
                             mode='default'
-                            data={data}
+                            data={descriptionList}
                             labelField="label"
                             placeholder='Description'
                             onChange={item => setDescription(item.value)}
@@ -55,12 +79,12 @@ const AddTransactionScreen = () => {
                         />
                     </View>
                     <View style={styles.toggleContainer}>
-                        <View style={[styles.toggleButton, styles.incomeButton]}>
+                        <TouchableOpacity style={[styles.toggleButton, styles.incomeButton]} onPress={() => setTransactionType("income")}>
                             <Text style={styles.toggleButtonText}>Income</Text>
-                        </View>
-                        <View style={[styles.toggleButton, styles.expenseButton]}>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.toggleButton, styles.expenseButton]} onPress={() => setTransactionType("expense")}>
                             <Text style={styles.toggleButtonText}>Expense</Text>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                     <TouchableOpacity onPress={() => setCalendarOpen(!calendarOpen)}>
                         <View style={styles.datePickerContainer}>
@@ -81,7 +105,7 @@ const AddTransactionScreen = () => {
                         />
                     )}
                 </View>
-                <TouchableOpacity style={styles.continueButton}>
+                <TouchableOpacity style={styles.continueButton} onPress={() => handleAddTransaction()}>
                     <Text style={styles.continueButtonText}>Continue</Text>
                 </TouchableOpacity>
             </View>

@@ -1,12 +1,14 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
+import { useSelector } from 'react-redux';
 
 const Transaction = () => {
+  const transactions = useSelector(state => state.transactionsReducer.transactions);
   return (
     <View style={styles.container}>
       <FilterComponent />
-      <Filterresult />
+      <Filterresult transactions={transactions} />
     </View>
   );
 };
@@ -70,94 +72,94 @@ const FilterComponent = () => {
   );
 };
 
-const Filterresult = () => {
-  const transactions = [
-    {
-      category: 'Shopping',
-      description: 'Lunch at restaurant',
-      amount: 5120,
-      time: '2024-08-06T12:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Transportation',
-      description: 'Bus fare',
-      amount: 250,
-      time: '2024-08-06T08:30:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Entertainment',
-      description: 'Movie ticket',
-      amount: 1500,
-      time: '2024-08-05T19:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Groceries',
-      description: 'Weekly groceries',
-      amount: 6000,
-      time: '2024-08-05T17:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Utilities',
-      description: 'Electricity bill',
-      amount: 4500,
-      time: '2024-08-04T15:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Health',
-      description: 'Pharmacy purchase',
-      amount: 2000,
-      time: '2024-08-03T14:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Rent',
-      description: 'Monthly rent payment',
-      amount: 120000,
-      time: '2024-08-01T10:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Fitness',
-      description: 'Gym membership',
-      amount: 5000,
-      time: '2024-08-01T09:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Insurance',
-      description: 'Car insurance payment',
-      amount: 10000,
-      time: '2024-07-30T11:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Savings',
-      description: 'Monthly savings deposit',
-      amount: 20000,
-      time: '2024-07-30T08:00:00Z',
-      transactionType: 'income',
-    },
-    {
-      category: 'Salary',
-      description: 'Monthly salary',
-      amount: 300000,
-      time: '2024-08-01T09:00:00Z',
-      transactionType: 'income',
-    },
-    {
-      category: 'Investment',
-      description: 'Stock dividends',
-      amount: 15000,
-      time: '2024-07-25T10:00:00Z',
-      transactionType: 'income',
-    },
-  ];
-
+const Filterresult = ({ transactions }) => {
+  // const transactions = [
+  //   {
+  //     category: 'Shopping',
+  //     description: 'Lunch at restaurant',
+  //     amount: 5120,
+  //     time: '2024-08-06T12:00:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Transportation',
+  //     description: 'Bus fare',
+  //     amount: 250,
+  //     time: '2024-08-06T08:30:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Entertainment',
+  //     description: 'Movie ticket',
+  //     amount: 1500,
+  //     time: '2024-08-05T19:00:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Groceries',
+  //     description: 'Weekly groceries',
+  //     amount: 6000,
+  //     time: '2024-08-05T17:00:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Utilities',
+  //     description: 'Electricity bill',
+  //     amount: 4500,
+  //     time: '2024-08-04T15:00:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Health',
+  //     description: 'Pharmacy purchase',
+  //     amount: 2000,
+  //     time: '2024-08-03T14:00:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Rent',
+  //     description: 'Monthly rent payment',
+  //     amount: 120000,
+  //     time: '2024-08-01T10:00:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Fitness',
+  //     description: 'Gym membership',
+  //     amount: 5000,
+  //     time: '2024-08-01T09:00:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Insurance',
+  //     description: 'Car insurance payment',
+  //     amount: 10000,
+  //     time: '2024-07-30T11:00:00Z',
+  //     transactionType: 'expense',
+  //   },
+  //   {
+  //     category: 'Savings',
+  //     description: 'Monthly savings deposit',
+  //     amount: 20000,
+  //     time: '2024-07-30T08:00:00Z',
+  //     transactionType: 'income',
+  //   },
+  //   {
+  //     category: 'Salary',
+  //     description: 'Monthly salary',
+  //     amount: 300000,
+  //     time: '2024-08-01T09:00:00Z',
+  //     transactionType: 'income',
+  //   },
+  //   {
+  //     category: 'Investment',
+  //     description: 'Stock dividends',
+  //     amount: 15000,
+  //     time: '2024-07-25T10:00:00Z',
+  //     transactionType: 'income',
+  //   },
+  // ];
+  console.log({transactions})
   const formatTime = (timeString) => {
     const date = new Date(timeString);
     return date.toLocaleTimeString('en-US', {
@@ -189,7 +191,7 @@ const Filterresult = () => {
                 {item.transactionType === 'expense' ? '-' : '+'}
                 {item.amount}
               </Text>
-              <Text style={styles.time}>{formatTime(item.time)}</Text>
+              <Text style={styles.time}>{formatTime(item.date)}</Text>
             </View>
           </View>
         )}

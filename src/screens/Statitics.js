@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, View, ScrollView, Dimensions } from 'react-nat
 import { Dropdown } from 'react-native-element-dropdown';
 import PieChart from 'react-native-pie-chart';
 import ProgressBar from '../component/ProgressBar'
-import * as Progress from 'react-native-progress';
+
 
 const Statitics = () => {
   const [selectedMonth, setMonth] = useState(null);
