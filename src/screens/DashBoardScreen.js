@@ -1,53 +1,45 @@
 import { useState } from "react";
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
-
 const DashBoardScreen = () => {
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.container}>
       <UpperComponent />
       <LowerComponent />
     </View>
-
   )
 }
 
 const UpperComponent = () => {
   return (
-    <View style={{ flex: 0.5, backgroundColor: '#FFF6E5', borderBottomStartRadius: 50, borderBottomRightRadius: 50 }}>
+    <View style={styles.upperContainer}>
       <View style={styles.headerContainer}>
         <View>
           <Text style={styles.headerLeftText}>MONDAY 9 </Text>
           <Text>NOVEMBER</Text>
         </View>
 
-        <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginEnd: 5 }}>
+        <View style={styles.profileContainer}>
           <View style={styles.imageWrapper}>
-            <Image style={styles.profileImage} source={require('../../assets/images/applogo.png')}></Image>
+            <Image style={styles.profileImage} source={require('../../assets/images/applogo.png')} />
           </View>
-          <Text style={{ fontSize: 14, verticalAlign: 'middle' }}>VISHNU</Text>
+          <Text style={styles.profileName}>VISHNU</Text>
         </View>
       </View>
-      <View
-        style={{
-          borderBottomColor: 'black',
-          borderBottomWidth: StyleSheet.hairlineWidth,
-          marginHorizontal: 10
-        }}
-      />
+      <View style={styles.divider} />
       <AccountBalance />
-      < AccountStatus />
+      <AccountStatus />
     </View>
   )
 }
 
 const LowerComponent = () => {
   return (
-    <View style={{ flex: 0.5, backgroundColor: '#A89696' }}>
+    <View style={styles.lowerContainer}>
       <TabView />
-      <View style={{ margin: 30, flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Text style={{ fontSize: 18, color: 'black' }}>Recent Transaction</Text>
-        <Text style={{ fontSize: 18, color: 'black' }}>View All</Text>
+      <View style={styles.recentTransactionHeader}>
+        <Text style={styles.recentTransactionText}>Recent Transaction</Text>
+        <Text style={styles.recentTransactionText}>View All</Text>
       </View>
       <RecentTransaction />
     </View>
@@ -57,32 +49,32 @@ const LowerComponent = () => {
 const AccountBalance = () => {
   return (
     <View style={styles.accountBalanceContainer}>
-      <Text style={{ fontSize: 14 }}>Account Balance </Text>
-      <Text style={{ fontSize: 40, fontWeight: '500', color: 'black' }}>9400.0</Text>
+      <Text style={styles.accountBalanceText}>Account Balance </Text>
+      <Text style={styles.accountBalanceAmount}>9400.0</Text>
     </View>
   )
 }
 
 const AccountStatus = () => {
   return (
-    <View style={{ flexDirection: 'row', marginBottom: 20 }}>
+    <View style={styles.accountStatusContainer}>
       <AccountIncomeStatus />
       <AccountExpensesStatus />
     </View>
-
   )
 }
+
 const AccountIncomeStatus = () => {
   return (
     <View style={styles.accountIncomeContainer}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-        <View style={{ height: 48, width: 48, borderRadius: 17, backgroundColor: 'white', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <Image style={{ marginBottom: 2 }} source={require('../../assets/images/incomeArrow.png')}></Image>
-          <Image source={require('../../assets/images/camera.png')} ></Image>
+      <View style={styles.accountStatusRow}>
+        <View style={styles.statusIconContainer}>
+          <Image style={styles.statusIcon} source={require('../../assets/images/incomeArrow.png')} />
+          <Image source={require('../../assets/images/camera.png')} />
         </View>
-        <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-          <Text style={{ color: 'white' }}>Income</Text>
-          <Text style={{ color: 'white', fontSize: 22 }}>25000</Text>
+        <View style={styles.statusTextContainer}>
+          <Text style={styles.statusLabelText}>Income</Text>
+          <Text style={styles.statusAmountText}>25000</Text>
         </View>
       </View>
     </View>
@@ -92,25 +84,24 @@ const AccountIncomeStatus = () => {
 const AccountExpensesStatus = () => {
   return (
     <View style={styles.accountExpensesContainer}>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-        <View style={{ height: 48, width: 48, borderRadius: 17, backgroundColor: 'white', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-          <Image style={{ marginBottom: 2 }} source={require('../../assets/images/expense.png')}></Image>
+      <View style={styles.accountStatusRow}>
+        <View style={styles.statusIconContainer}>
+          <Image style={styles.statusIcon} source={require('../../assets/images/expense.png')} />
         </View>
-        <View style={{ flexDirection: 'column', justifyContent: 'center' }}>
-          <Text style={{ color: 'white' }}>Expenses</Text>
-          <Text style={{ color: 'white', fontSize: 22 }}>11200</Text>
+        <View style={styles.statusTextContainer}>
+          <Text style={styles.statusLabelText}>Expenses</Text>
+          <Text style={styles.statusAmountText}>11200</Text>
         </View>
       </View>
     </View>
   )
 }
 
-
 const TabView = () => {
   const tabdata = ["Today", "Week", "Month", "Year"];
   const [selectedTab, setSelectedTab] = useState(tabdata[0]);
   return (
-    <View style={{ marginTop: 30, marginHorizontal: 10, borderRadius: 16, borderColor: 'white', borderWidth: 1 }}>
+    <View style={styles.tabViewContainer}>
       <FlatList
         data={tabdata}
         renderItem={({ item }) => (
@@ -121,12 +112,10 @@ const TabView = () => {
               <Text style={item === selectedTab ? styles.selectedTabText : styles.tabText}>{item}</Text>
             </TouchableOpacity>
           </View>
-
         )}
-        contentContainerStyle={{ width: '100%', justifyContent: "space-between" }}
+        contentContainerStyle={styles.tabContentContainer}
         horizontal
-      >
-      </FlatList>
+      />
     </View>
   )
 }
@@ -161,38 +150,50 @@ const RecentTransaction = () => {
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <View style={{ flexDirection: 'row', width: 350, height: 54, marginBottom: 10, borderRadius: 5, backgroundColor:'#D9D9D9',alignSelf:'center',justifyContent:'space-between',padding:10}}>
-            <View style={{ flexDirection: 'row' , alignItems:'center',}}>
-              <Image source={getCategoryImage(item.category)} style={{ width: 38, height: 41, marginRight: 10 }} />
-              <Image source={require('../../assets/images/bi_currency-rupee.png')}></Image>
-              <Text style={{fontSize:22,color:'black'}}>{`${item.amount}`}</Text>
+          <View style={styles.transactionItem}>
+            <View style={styles.transactionItemLeft}>
+              <Image source={getCategoryImage(item.category)} style={styles.transactionCategoryIcon} />
+              <Image source={require('../../assets/images/bi_currency-rupee.png')} />
+              <Text style={styles.transactionAmountText}>{`${item.amount}`}</Text>
             </View>
-            <Text style={{verticalAlign:'middle',fontSize:15}}>{item.category}</Text>
+            <Text style={styles.transactionCategoryText}>{item.category}</Text>
           </View>
-
         )}
-      >
-      </FlatList>
+      />
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  upperContainer: {
+    flex: 0.5,
+    backgroundColor: '#FFF6E5',
+    borderBottomStartRadius: 50,
+    borderBottomRightRadius: 50,
+  },
   headerContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    margin: 20
+    margin: 20,
   },
   headerLeftText: {
     fontSize: 14,
     fontWeight: '700',
+  },
+  profileContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginEnd: 5,
   },
   profileImage: {
     width: 40,
     height: 40,
     borderRadius: 20,
     alignSelf: 'center',
-    margin: 2
+    margin: 2,
   },
   imageWrapper: {
     width: 45,
@@ -202,17 +203,33 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginHorizontal: 10
+    marginHorizontal: 10,
   },
-  horizontalLine: {
-    height: 1,
-    backgroundColor: '#525252',
-    marginVertical: 10
+  profileName: {
+    fontSize: 14,
+    verticalAlign: 'middle',
+  },
+  divider: {
+    borderBottomColor: 'black',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    marginHorizontal: 10,
   },
   accountBalanceContainer: {
     flex: 1,
     justifyContent: 'center',
     alignSelf: 'center',
+  },
+  accountBalanceText: {
+    fontSize: 14,
+  },
+  accountBalanceAmount: {
+    fontSize: 40,
+    fontWeight: '500',
+    color: 'black',
+  },
+  accountStatusContainer: {
+    flexDirection: 'row',
+    marginBottom: 20,
   },
   accountIncomeContainer: {
     backgroundColor: '#00A86B',
@@ -220,7 +237,7 @@ const styles = StyleSheet.create({
     height: 64,
     margin: 20,
     borderRadius: 30,
-    padding: 10
+    padding: 10,
   },
   accountExpensesContainer: {
     backgroundColor: '#FD3C4A',
@@ -228,15 +245,51 @@ const styles = StyleSheet.create({
     height: 64,
     margin: 20,
     borderRadius: 30,
-    padding: 10
+    padding: 10,
   },
-  selectedTabItem: {
-    paddingHorizontal: 15,
-    backgroundColor: 'black',
-    borderRadius: 10,
+  accountStatusRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  statusIconContainer: {
+    height: 48,
+    width: 48,
+    borderRadius: 17,
+    backgroundColor: 'white',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  statusIcon: {
+    marginBottom: 2,
+  },
+  statusTextContainer: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+  },
+  statusLabelText: {
     color: 'white',
   },
-  tabItem: {
+  statusAmountText: {
+    color: 'white',
+    fontSize: 22,
+  },
+  lowerContainer: {
+    flex: 0.5,
+    backgroundColor: '#A89696',
+  },
+  tabViewContainer: {
+    marginTop: 30,
+    marginHorizontal: 10,
+    borderRadius: 16,
+    borderColor: 'white',
+    borderWidth: 1,
+  },
+  tabContentContainer: {
+    width: '100%',
+    justifyContent: 'space-between',
+  },
+  selectedTabItem: {
     paddingHorizontal: 15,
     backgroundColor: 'black',
     borderRadius: 10,
@@ -251,6 +304,43 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 20,
   },
+  recentTransactionHeader: {
+    margin: 30,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  recentTransactionText: {
+    fontSize: 18,
+    color: 'black',
+  },
+  transactionItem: {
+    flexDirection: 'row',
+    width: 350,
+    height: 54,
+    marginBottom: 10,
+    borderRadius: 5,
+    backgroundColor: '#D9D9D9',
+    alignSelf: 'center',
+    justifyContent: 'space-between',
+    padding: 10,
+  },
+  transactionItemLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  transactionCategoryIcon: {
+    width: 38,
+    height: 41,
+    marginRight: 10,
+  },
+  transactionAmountText: {
+    fontSize: 22,
+    color: 'black',
+  },
+  transactionCategoryText: {
+    verticalAlign: 'middle',
+    fontSize: 15,
+  },
+});
 
-})
 export default DashBoardScreen;
