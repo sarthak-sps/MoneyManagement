@@ -1,22 +1,45 @@
 import { useState } from "react";
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useSelector } from "react-redux";
 
 const DashBoardScreen = () => {
+  const transactions = useSelector(state => state.transactionsReducer.transactions)
+  const totalIncome = transactions.filter(transaction => transaction.transactionType === 'income').reduce((sum, transaction) => sum + parseFloat(transaction.amount), 0);
+  const totalExpense = transactions.filter(transaction => transaction.transactionType === 'expense').reduce((sum, transaction) => sum + parseFloat(transaction.amount), 0);
+
+  // const filterTransactions = transactions.filter(transaction => {
+  //   const transactionDate = new Date(transaction.date);
+  //   const transactionMonth = transactionDate.getMonth() + 1;
+  //   const transactionYear = transactionDate.getFullYear();
+  //   return transactionMonth === currentMonth && transactionYear === currentYear;
+  // });
+
   return (
     <View style={styles.container}>
-      <UpperComponent />
-      <LowerComponent />
+      <UpperComponent totalIncome={totalIncome} totalExpense={totalExpense} />
+      <LowerComponent transactions={transactions} />
     </View>
   )
 }
 
-const UpperComponent = () => {
+const UpperComponent = ({ totalIncome, totalExpense }) => {
+  // Get the current date
+  const currentDate = new Date();
+
+  // Get the day of the week
+  const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const currentDay = daysOfWeek[currentDate.getDay()];
+
+  // Get the date and month
+  const currentDateNumber = currentDate.getDate();
+  const monthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  const currentMonth = monthsOfYear[currentDate.getMonth()];
   return (
     <View style={styles.upperContainer}>
       <View style={styles.headerContainer}>
         <View>
-          <Text style={styles.headerLeftText}>MONDAY 9 </Text>
-          <Text>NOVEMBER</Text>
+          <Text style={styles.headerLeftText}>{currentDay} {currentDateNumber} </Text>
+          <Text>{currentMonth}</Text>
         </View>
 
         <View style={styles.profileContainer}>
@@ -27,44 +50,40 @@ const UpperComponent = () => {
         </View>
       </View>
       <View style={styles.divider} />
-      <AccountBalance />
-      <AccountStatus />
+      <AccountBalance totalIncome={totalIncome} totalExpense={totalExpense} />
+      <AccountStatus totalIncome={totalIncome} totalExpense={totalExpense} />
     </View>
   )
 }
 
-const LowerComponent = () => {
+const LowerComponent = ({ transactions }) => {
   return (
     <View style={styles.lowerContainer}>
-      <TabView />
-      <View style={styles.recentTransactionHeader}>
-        <Text style={styles.recentTransactionText}>Recent Transaction</Text>
-        <Text style={styles.recentTransactionText}>View All</Text>
-      </View>
-      <RecentTransaction />
+      <TabView transactions={transactions} />
+      {/* <RecentTransaction /> */}
     </View>
   )
 }
 
-const AccountBalance = () => {
+const AccountBalance = ({ totalIncome, totalExpense }) => {
   return (
     <View style={styles.accountBalanceContainer}>
       <Text style={styles.accountBalanceText}>Account Balance </Text>
-      <Text style={styles.accountBalanceAmount}>9400.0</Text>
+      <Text style={styles.accountBalanceAmount}>{totalIncome - totalExpense}</Text>
     </View>
   )
 }
 
-const AccountStatus = () => {
+const AccountStatus = ({ totalIncome, totalExpense }) => {
   return (
     <View style={styles.accountStatusContainer}>
-      <AccountIncomeStatus />
-      <AccountExpensesStatus />
+      <AccountIncomeStatus totalIncome={totalIncome} />
+      <AccountExpensesStatus totalExpense={totalExpense} />
     </View>
   )
 }
 
-const AccountIncomeStatus = () => {
+const AccountIncomeStatus = ({ totalIncome }) => {
   return (
     <View style={styles.accountIncomeContainer}>
       <View style={styles.accountStatusRow}>
@@ -74,14 +93,14 @@ const AccountIncomeStatus = () => {
         </View>
         <View style={styles.statusTextContainer}>
           <Text style={styles.statusLabelText}>Income</Text>
-          <Text style={styles.statusAmountText}>25000</Text>
+          <Text style={styles.statusAmountText}>{totalIncome}</Text>
         </View>
       </View>
     </View>
   )
 }
 
-const AccountExpensesStatus = () => {
+const AccountExpensesStatus = ({ totalExpense }) => {
   return (
     <View style={styles.accountExpensesContainer}>
       <View style={styles.accountStatusRow}>
@@ -90,69 +109,97 @@ const AccountExpensesStatus = () => {
         </View>
         <View style={styles.statusTextContainer}>
           <Text style={styles.statusLabelText}>Expenses</Text>
-          <Text style={styles.statusAmountText}>11200</Text>
+          <Text style={styles.statusAmountText}>{totalExpense}</Text>
         </View>
       </View>
     </View>
   )
 }
 
-const TabView = () => {
+const TabView = ({ transactions }) => {
   const tabdata = ["Today", "Week", "Month", "Year"];
   const [selectedTab, setSelectedTab] = useState(tabdata[0]);
+  const [filteredTransactions, setFilteredTransactions] = useState([]);
+
+  const currentDate = new Date();
+  const todayDate = currentDate.toISOString().split('T')[0];
+
+  const filterListByTab = (tab) => {
+    switch (tab) {
+      case 'Today':
+        return transactions.filter(transaction => transaction.date === todayDate);
+      case 'Week':
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
+        const endOfWeek = new Date(startOfWeek);
+        endOfWeek.setDate(startOfWeek.getDate() + 6);
+        return transactions.filter(transaction => new Date(transaction.date) >= startOfWeek && new Date(transaction.date) <= endOfWeek);
+      case 'Month':
+        return transactions.filter(transaction => new Date(transaction.date).getMonth() === currentDate.getMonth() && new Date(transaction.date).getFullYear() === currentDate.getFullYear());
+      case 'Year':
+        return transactions.filter(transaction => new Date(transaction.date).getFullYear() === currentDate.getFullYear());
+      default:
+        return transactions;
+    }
+  }
+
+  const handleTabPress = (tab) => {
+    setSelectedTab(tab);
+    const filtered = filterListByTab(tab);
+    console.log(filtered);
+
+    setFilteredTransactions(filtered);
+  }
+  console.log(filteredTransactions);
+
   return (
-    <View style={styles.tabViewContainer}>
-      <FlatList
-        data={tabdata}
-        renderItem={({ item }) => (
-          <View>
-            <TouchableOpacity style={[item === selectedTab && styles.selectedTabItem]}
-              onPress={() => setSelectedTab(item)}
-            >
-              <Text style={item === selectedTab ? styles.selectedTabText : styles.tabText}>{item}</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-        contentContainerStyle={styles.tabContentContainer}
-        horizontal
-      />
+    <View>
+      <View style={styles.tabViewContainer}>
+        <FlatList
+          data={tabdata}
+          renderItem={({ item }) => (
+            <View>
+              <TouchableOpacity style={[item === selectedTab && styles.selectedTabItem]}
+                onPress={() => handleTabPress(item)}
+              >
+                <Text style={item === selectedTab ? styles.selectedTabText : styles.tabText}>{item}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+          contentContainerStyle={styles.tabContentContainer}
+          horizontal
+        />
+      </View>
+      <View style={styles.recentTransactionHeader}>
+          <Text style={styles.recentTransactionText}>Recent Transaction</Text>
+          <Text style={styles.recentTransactionText}>View All</Text>
+        </View>
+        <RecentTransaction filteredTransactions={filteredTransactions} />
     </View>
+
   )
 }
 
-const RecentTransaction = () => {
-  const data = [{
-    id: 1,
-    amount: 15000,
-    category: 'Income'
-  },
-  {
-    id: 2,
-    amount: 6500,
-    category: "Food",
-  },
-  {
-    id: 3,
-    amount: 2800,
-    category: "Income"
-  }
-  ]
+const RecentTransaction = ({ filteredTransactions }) => {
+  console.log(filteredTransactions);
+
   const getCategoryImage = (category) => {
     switch (category) {
-      case 'Income':
+      case 'income':
         return require('../../assets/images/incomeArrow.png');
-      case 'Food':
+      case 'expense':
         return require('../../assets/images/expense.png');
     }
   }
+
   return (
     <View>
       <FlatList
-        data={data}
+        data={filteredTransactions}
         renderItem={({ item }) => (
           <View style={styles.transactionItem}>
             <View style={styles.transactionItemLeft}>
-              <Image source={getCategoryImage(item.category)} style={styles.transactionCategoryIcon} />
+              <Image source={getCategoryImage(item.transactionType)} style={styles.transactionCategoryIcon} />
               <Image source={require('../../assets/images/bi_currency-rupee.png')} />
               <Text style={styles.transactionAmountText}>{`${item.amount}`}</Text>
             </View>
@@ -208,7 +255,7 @@ const styles = StyleSheet.create({
   profileName: {
     fontSize: 14,
     verticalAlign: 'middle',
-    alignSelf:'center',
+    alignSelf: 'center',
   },
   divider: {
     borderBottomColor: 'black',

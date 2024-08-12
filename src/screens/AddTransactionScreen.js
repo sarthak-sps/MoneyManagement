@@ -6,12 +6,14 @@ import { useDispatch } from 'react-redux';
 import { addTransaction } from '../redux/actions';
 
 const AddTransactionScreen = () => {
-    const [category, setCategory] = useState(null);
-    const [description, setDescription] = useState(null);
+    const [category, setCategory] = useState('');
+    const [description, setDescription] = useState('');
     const [calendarOpen, setCalendarOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState(" ");
-    const [transactionType, setTransactionType] = useState(" ");
-    const [ amount , setAmount] = useState('')
+    const [selectedDate, setSelectedDate] = useState('');
+    const [transactionType, setTransactionType] = useState('');
+    const [amount, setAmount] = useState('');
+
+    const dispatch = useDispatch();
 
     const categoryList = [
         { label: 'Shopping', value: 'shopping' },
@@ -20,20 +22,19 @@ const AddTransactionScreen = () => {
         { label: 'Outing', value: 'outing' }
     ];
 
-
     const descriptionList = [
         { label: 'Buy some grocery', value: 'Buy some grocery' },
         { label: 'Arabian hut', value: 'Arabian hut' },
-        { label: 'Salary for august', value: 'Salary for august' },
+        { label: 'Salary for August', value: 'Salary for August' },
         { label: 'Outing', value: 'outing' }
     ];
 
-    useEffect(() => {
-        setSelectedDate(" ");
-    }, []);
-    const dispatch = useDispatch()
-
     const handleAddTransaction = () => {
+        if (!transactionType || !selectedDate || !amount) {
+            console.log("Please fill all the fields");
+            return;
+        }
+
         const transaction = {
             category,
             description,
@@ -41,8 +42,21 @@ const AddTransactionScreen = () => {
             amount,
             date: selectedDate,
         };
-        dispatch(addTransaction(transaction))
-        console.log(transaction)
+
+        dispatch(addTransaction(transaction));
+        clearFieldData();
+    };
+
+    const clearFieldData = () => {
+        setCategory('');
+        setDescription('');
+        setSelectedDate('');
+        setTransactionType('');
+        setAmount('');
+    };
+
+    const handleTransactionTypeChange = (type) => {
+        setTransactionType(type);
     };
 
     return (
@@ -50,45 +64,53 @@ const AddTransactionScreen = () => {
             <View style={styles.innerContainer}>
                 <View style={styles.amountContainer}>
                     <Text style={styles.amountLabel}>How Much?</Text>
-                    <TextInput style={styles.amount}
-                    onChangeText={setAmount}
-                    value= {amount}
-                    ></TextInput>
+                    <TextInput
+                        style={styles.amountInput}
+                        onChangeText={setAmount}
+                        value={amount}
+                        keyboardType="numeric"
+                    />
                 </View>
                 <View style={styles.formContainer}>
                     <View style={styles.dropdownContainer}>
                         <Dropdown
-                            mode='default'
+                            mode="default"
                             data={categoryList}
                             labelField="label"
-                            placeholder='Category'
-                            onChange={item => setCategory(item.value)}
-                            value={category}
                             valueField="value"
+                            placeholder="Category"
+                            onChange={(item) => setCategory(item.value)}
+                            value={category}
                         />
                     </View>
                     <View style={styles.dropdownContainer}>
                         <Dropdown
-                            mode='default'
+                            mode="default"
                             data={descriptionList}
                             labelField="label"
-                            placeholder='Description'
-                            onChange={item => setDescription(item.value)}
-                            value={description}
                             valueField="value"
+                            placeholder="Description"
+                            onChange={(item) => setDescription(item.value)}
+                            value={description}
                         />
                     </View>
                     <View style={styles.toggleContainer}>
-                        <TouchableOpacity style={[styles.toggleButton, styles.incomeButton]} onPress={() => setTransactionType("income")}>
+                        <TouchableOpacity
+                            style={[styles.toggleButton, transactionType === "income" ? styles.incomeButtonActive : styles.incomeButton]}
+                            onPress={() => handleTransactionTypeChange("income")}
+                        >
                             <Text style={styles.toggleButtonText}>Income</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.toggleButton, styles.expenseButton]} onPress={() => setTransactionType("expense")}>
+                        <TouchableOpacity
+                            style={[styles.toggleButton, transactionType === "expense" ? styles.expenseButtonActive : styles.expenseButton]}
+                            onPress={() => handleTransactionTypeChange("expense")}
+                        >
                             <Text style={styles.toggleButtonText}>Expense</Text>
                         </TouchableOpacity>
                     </View>
                     <TouchableOpacity onPress={() => setCalendarOpen(!calendarOpen)}>
                         <View style={styles.datePickerContainer}>
-                            {selectedDate === " " ? (
+                            {selectedDate === '' ? (
                                 <Text>Pick Your Date</Text>
                             ) : (
                                 <Text>{selectedDate}</Text>
@@ -97,7 +119,7 @@ const AddTransactionScreen = () => {
                     </TouchableOpacity>
                     {calendarOpen && (
                         <Calendar
-                            onDayPress={day => {
+                            onDayPress={(day) => {
                                 setCalendarOpen(false);
                                 setSelectedDate(day.dateString);
                             }}
@@ -105,7 +127,7 @@ const AddTransactionScreen = () => {
                         />
                     )}
                 </View>
-                <TouchableOpacity style={styles.continueButton} onPress={() => handleAddTransaction()}>
+                <TouchableOpacity style={styles.continueButton} onPress={handleAddTransaction}>
                     <Text style={styles.continueButtonText}>Continue</Text>
                 </TouchableOpacity>
             </View>
@@ -130,7 +152,7 @@ const styles = StyleSheet.create({
     amountLabel: {
         fontSize: 20,
     },
-    amount: {
+    amountInput: {
         fontSize: 40,
         color: 'black',
     },
@@ -164,8 +186,14 @@ const styles = StyleSheet.create({
     incomeButton: {
         backgroundColor: 'green',
     },
+    incomeButtonActive: {
+        backgroundColor: '#006400',
+    },
     expenseButton: {
         backgroundColor: 'red',
+    },
+    expenseButtonActive: {
+        backgroundColor: '#8B0000',
     },
     toggleButtonText: {
         fontSize: 20,
