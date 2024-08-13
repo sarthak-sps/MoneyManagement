@@ -1,13 +1,12 @@
-import { View ,Image} from "react-native"
+import { View, Image } from "react-native"
+import { appLogo } from "../utils/images";
 
-const HomeScreen = ()=>{
+const HomeScreen = () => {
     useEffect(() => {
         SplashScreen.hide();
-      }, []);
-    return(
+    }, []);
+    return (
         <View>
-            <Image source={require('../assets/images/SplashScreen.png')} >
-            </Image>
         </View>
     )
 }

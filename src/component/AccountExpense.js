@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from '../styles/DasboardStyle';
+import { expenseImage } from '../utils/images';
 
 /**
  * AccountExpensesStatus Component
@@ -14,7 +15,7 @@ const AccountExpensesStatus = ({ totalExpense }) => {
         <View style={styles.accountExpensesContainer}>
             <View style={styles.accountStatusRow}>
                 <View style={styles.statusIconContainer}>
-                    <Image style={styles.statusIcon} source={require('../../assets/images/expense.png')} />
+                    <Image style={styles.statusIcon} source={expenseImage} />
                 </View>
                 <View style={styles.statusTextContainer}>
                     <Text style={styles.statusLabelText}>Expenses</Text>

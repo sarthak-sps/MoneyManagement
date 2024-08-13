@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import RecentTransaction from './RecentTransaction';
 import styles from '../styles/DasboardStyle';
+import { tabdata } from '../constant';
 
 /**
  * TabView Component
@@ -12,7 +13,7 @@ import styles from '../styles/DasboardStyle';
  * @param {Array} props.transactions - The list of transactions.
  */
 const TabView = ({ transactions }) => {
-    const tabdata = ["Today", "Week", "Month", "Year"];
+
     const [selectedTab, setSelectedTab] = useState(tabdata[0]);
     const [filteredTransactions, setFilteredTransactions] = useState([]);
 

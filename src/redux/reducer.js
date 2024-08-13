@@ -1,3 +1,5 @@
+import { ADD_TRANSACTION, SELECTED_MONTH, SELECTED_CATEGORY } from '../redux/action_type';
+
 const initialState = {
     transactions: [],
     selectedMonth: "month",
@@ -7,17 +9,17 @@ const initialState = {
 
 const transactionsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'ADD_TRANSACTION':
+        case ADD_TRANSACTION:
             return {
                 ...state,
                 transactions: [...state.transactions, action.payload],
             };
-        case 'SELECTED_MONTH':
+        case SELECTED_MONTH:
             return {
                 ...state,
                 selectedMonth: action.payload
             }
-        case 'SELECTED_CATEGORY':
+        case SELECTED_CATEGORY:
             return {
                 ...state,
                 selectedCategory: action.payload

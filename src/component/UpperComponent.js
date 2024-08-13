@@ -3,6 +3,8 @@ import { View, Text, Image } from 'react-native';
 import styles from '../styles/DasboardStyle';
 import AccountBalance from './AccountBalance';
 import AccountStatus from './AccountStatus';
+import { appLogo } from '../utils/images'
+import { daysOfWeek, monthsOfYear } from '../constant';
 
 /**
  * UpperComponent Component
@@ -18,12 +20,11 @@ const UpperComponent = ({ totalIncome, totalExpense }) => {
     const currentDate = new Date();
 
     // Get the day of the week
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const currentDay = daysOfWeek[currentDate.getDay()];
 
     // Get the date and month
     const currentDateNumber = currentDate.getDate();
-    const monthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
     const currentMonth = monthsOfYear[currentDate.getMonth()];
 
 
@@ -37,7 +38,7 @@ const UpperComponent = ({ totalIncome, totalExpense }) => {
 
                 <View style={styles.profileContainer}>
                     <View style={styles.imageWrapper}>
-                        <Image style={styles.profileImage} source={require('../../assets/images/applogo.png')} />
+                        <Image style={styles.profileImage} source={appLogo} />
                     </View>
                     <Text style={styles.profileName}>Sarthak</Text>
                 </View>

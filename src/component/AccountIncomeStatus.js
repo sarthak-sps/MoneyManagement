@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from '../styles/DasboardStyle';
+import { incomeImage, cameraImage } from '../utils/images';
 
 /**
  * AccountIncomeStatus Component
@@ -14,8 +15,8 @@ const AccountIncomeStatus = ({ totalIncome }) => {
         <View style={styles.accountIncomeContainer}>
             <View style={styles.accountStatusRow}>
                 <View style={styles.statusIconContainer}>
-                    <Image style={styles.statusIcon} source={require('../../assets/images/incomeArrow.png')} />
-                    <Image source={require('../../assets/images/camera.png')} />
+                    <Image style={styles.statusIcon} source={incomeImage} />
+                    <Image source={cameraImage} />
                 </View>
                 <View style={styles.statusTextContainer}>
                     <Text style={styles.statusLabelText}>Income</Text>

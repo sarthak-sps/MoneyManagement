@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, FlatList, Image, Text } from 'react-native';
 import styles from '../styles/DasboardStyle';
+import { incomeImage, expenseImage, ruppeSymbol } from '../utils/images';
 
 /**
  * RecentTransaction Component
@@ -13,9 +14,9 @@ const RecentTransaction = ({ filteredTransactions }) => {
     const getCategoryImage = (category) => {
         switch (category) {
             case 'income':
-                return require('../../assets/images/incomeArrow.png');
+                return incomeImage;
             case 'expense':
-                return require('../../assets/images/expense.png');
+                return expenseImage;
         }
     }
 
@@ -27,7 +28,7 @@ const RecentTransaction = ({ filteredTransactions }) => {
                     <View style={styles.transactionItem}>
                         <View style={styles.transactionItemLeft}>
                             <Image source={getCategoryImage(item.transactionType)} style={styles.transactionCategoryIcon} />
-                            <Image source={require('../../assets/images/bi_currency-rupee.png')} />
+                            <Image source={ruppeSymbol} />
                             <Text style={styles.transactionAmountText}>{`${item.amount}`}</Text>
                         </View>
                         <Text style={styles.transactionCategoryText}>{item.category}</Text>
