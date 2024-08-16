@@ -1,40 +1,45 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
+import { useDispatch, useSelector } from 'react-redux';
+import styles from '../styles/TransactionStyle';
+import { months, categories } from '../constant';
 
 const Transaction = () => {
+  const transactions = useSelector(state => state.transactionsReducer.transactions);
+  const selectedMonthValue = useSelector(state => state.transactionsReducer.selectedMonth);
+  const selectedCategoryValue = useSelector(state => state.transactionsReducer.selectedCategory);
+
+  // Map selected values to labels
+  const selectedMonth = months.find(month => month.value === selectedMonthValue)?.label || 'Select Month';
+  const selectedCategory = categories.find(category => category.value === selectedCategoryValue)?.label || 'Select Category';
   return (
     <View style={styles.container}>
-      <FilterComponent />
-      <Filterresult />
+      <FilterComponent
+        selectedMonth={selectedMonth}
+        selectedCategory={selectedCategory}
+      />
+      <Filterresult
+        transactions={transactions}
+        selectedMonth={selectedMonth}
+        selectedCategory={selectedCategory}
+        selectedDate={transactions.date}
+
+      />
     </View>
   );
 };
 
-const FilterComponent = () => {
-  const [selectedMonth, setMonth] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState(false);
+const FilterComponent = ({ selectedMonth, selectedCategory }) => {
+  const dispatch = useDispatch();
 
-  const months = [
-    { label: 'January', value: '1' },
-    { label: 'February', value: '2' },
-    { label: 'March', value: '3' },
-    { label: 'April', value: '4' },
-    { label: 'May', value: '5' },
-    { label: 'June', value: '6' },
-    { label: 'July', value: '7' },
-    { label: 'August', value: '8' },
-    { label: 'September', value: '9' },
-    { label: 'October', value: '10' },
-    { label: 'November', value: '11' },
-    { label: 'December', value: '12' },
-  ];
+  const handleMonthChange = (item) => {
+    dispatch({ type: 'SELECTED_MONTH', payload: item.value });
+  };
 
-  const category = [
-    { label: 'All', value: '1' },
-    { label: 'Income', value: '2' },
-    { label: 'Expense', value: '3' },
-  ];
+  const handleCategoryChange = (item) => {
+    dispatch({ type: 'SELECTED_CATEGORY', payload: item.value });
+  };
 
   return (
     <View style={styles.filterContainer}>
@@ -43,8 +48,8 @@ const FilterComponent = () => {
         data={months}
         labelField="label"
         placeholder='Month'
-        onChange={item => setMonth(item.value)}
-        value={selectedMonth}
+        onChange={item => handleMonthChange(item)}
+        value={months.find(month => month.label === selectedMonth)?.value}
         valueField="value"
         renderLeftIcon={() => (
           <Image source={require('../../assets/images/arrow-down-2.png')} />
@@ -54,11 +59,11 @@ const FilterComponent = () => {
       />
       <Dropdown
         mode='default'
-        data={category}
+        data={categories}
         labelField="label"
         placeholder='All'
-        onChange={item => setSelectedCategory(item.value)}
-        value={selectedCategory}
+        onChange={handleCategoryChange}
+        value={categories.find(category => category.label === selectedCategory)?.value}
         valueField="value"
         renderLeftIcon={() => (
           <Image source={require('../../assets/images/arrow-down-2.png')} />
@@ -69,97 +74,29 @@ const FilterComponent = () => {
     </View>
   );
 };
+const Filterresult = ({ transactions, selectedMonth, selectedCategory,selectedDate }) => {
+  // Convert selectedMonth label to corresponding number
+  const selectedMonthValue = months.find(month => month.label === selectedMonth)?.value;
 
-const Filterresult = () => {
-  const transactions = [
-    {
-      category: 'Shopping',
-      description: 'Lunch at restaurant',
-      amount: 5120,
-      time: '2024-08-06T12:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Transportation',
-      description: 'Bus fare',
-      amount: 250,
-      time: '2024-08-06T08:30:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Entertainment',
-      description: 'Movie ticket',
-      amount: 1500,
-      time: '2024-08-05T19:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Groceries',
-      description: 'Weekly groceries',
-      amount: 6000,
-      time: '2024-08-05T17:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Utilities',
-      description: 'Electricity bill',
-      amount: 4500,
-      time: '2024-08-04T15:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Health',
-      description: 'Pharmacy purchase',
-      amount: 2000,
-      time: '2024-08-03T14:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Rent',
-      description: 'Monthly rent payment',
-      amount: 120000,
-      time: '2024-08-01T10:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Fitness',
-      description: 'Gym membership',
-      amount: 5000,
-      time: '2024-08-01T09:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Insurance',
-      description: 'Car insurance payment',
-      amount: 10000,
-      time: '2024-07-30T11:00:00Z',
-      transactionType: 'expense',
-    },
-    {
-      category: 'Savings',
-      description: 'Monthly savings deposit',
-      amount: 20000,
-      time: '2024-07-30T08:00:00Z',
-      transactionType: 'income',
-    },
-    {
-      category: 'Salary',
-      description: 'Monthly salary',
-      amount: 300000,
-      time: '2024-08-01T09:00:00Z',
-      transactionType: 'income',
-    },
-    {
-      category: 'Investment',
-      description: 'Stock dividends',
-      amount: 15000,
-      time: '2024-07-25T10:00:00Z',
-      transactionType: 'income',
-    },
-  ];
+  // Filter transactions based on selectedMonth and selectedCategory
+  const filteredTransactions = transactions.filter(transaction => {
+    const transactionMonth = new Date(transaction.date).getMonth() + 1; // getMonth() returns 0-indexed month
 
-  const formatTime = (timeString) => {
-    const date = new Date(timeString);
+    // Check if the transaction matches the selected month
+    const isMonthMatch = transactionMonth.toString() === selectedMonthValue;
+
+    // Check if the transaction matches the selected category
+    const isCategoryMatch = selectedCategory === 'All' || transaction.transactionType === selectedCategory.toLowerCase();
+
+    return isMonthMatch && isCategoryMatch;
+  });
+
+  console.log({ transactions });
+  console.log({ selectedMonth });
+  console.log({ selectedCategory });
+
+  const formatTime = (selectedDate) => {
+    const date = new Date(selectedDate);
     return date.toLocaleTimeString('en-US', {
       hour: 'numeric',
       minute: 'numeric',
@@ -170,7 +107,7 @@ const Filterresult = () => {
   return (
     <View>
       <FlatList
-        data={transactions}
+        data={filteredTransactions}
         keyExtractor={(item, index) => index.toString()}
         contentContainerStyle={styles.flatListContent}
         renderItem={({ item }) => (
@@ -189,7 +126,7 @@ const Filterresult = () => {
                 {item.transactionType === 'expense' ? '-' : '+'}
                 {item.amount}
               </Text>
-              <Text style={styles.time}>{formatTime(item.time)}</Text>
+              <Text style={styles.time}>{formatTime(item.date)}</Text>
             </View>
           </View>
         )}
@@ -197,63 +134,6 @@ const Filterresult = () => {
     </View>
   );
 };
-
 export default Transaction;
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#FFF6E5',
-    flex: 1,
-  },
-  filterContainer: {
-    flexDirection: 'row',
-    marginTop: 40,
-  },
-  dropdown: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    flexDirection: 'row',
-    marginHorizontal: 10,
-    borderRadius: 40,
-    borderWidth: 1,
-    alignItems: 'center',
-    width: 130,
-    height: 40,
-  },
-  flatListContent: {
-    paddingBottom: 50,
-  },
-  transactionContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    height: 90,
-    backgroundColor: 'white',
-    margin: 10,
-    borderRadius: 24,
-  },
-  transactionDetails: {
-    flexDirection: 'column',
-    margin: 20,
-    justifyContent: 'space-between',
-  },
-  category: {
-    fontSize: 22,
-  },
-  description: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  transactionAmount: {
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    margin: 20,
-  },
-  amount: {
-    fontSize: 20,
-    fontWeight: '600',
-  },
-  time: {
-    fontSize: 13,
-    fontWeight: '600',
-  },
-});
+

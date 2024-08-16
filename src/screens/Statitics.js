@@ -1,30 +1,40 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { Image, StyleSheet, Text, View, ScrollView, Dimensions, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import PieChart from 'react-native-pie-chart';
 import ProgressBar from '../component/ProgressBar'
-import * as Progress from 'react-native-progress';
+import styles from '../styles/StatiticsStyle';
+import { arrowDown } from '../utils/images';
+import { useDispatch, useSelector } from 'react-redux';
+import { months } from '../constant';
+
 
 const Statitics = () => {
-  const [selectedMonth, setMonth] = useState(null);
-  const months = [
-    { label: 'January', value: '1' },
-    { label: 'February', value: '2' },
-    { label: 'March', value: '3' },
-    { label: 'April', value: '4' },
-    { label: 'May', value: '5' },
-    { label: 'June', value: '6' },
-    { label: 'July', value: '7' },
-    { label: 'August', value: '8' },
-    { label: 'September', value: '9' },
-    { label: 'October', value: '10' },
-    { label: 'November', value: '11' },
-    { label: 'December', value: '12' },
-  ];
+  const [selectedType, setSelectedType] = useState('expense');
+  const dispatch = useDispatch();
+  const selectedMonth = useSelector(state => state.transactionsReducer.selectedMonth);
+  const transactions = useSelector(state => state.transactionsReducer.transactions);
+  const handleMonthChange = (item) => {
+    dispatch({ type: 'SELECTED_MONTH', payload: item.value });
+  };
 
-  const data = [0.55, 0.30, 0.15];
-  const totalAmount = 9400.0;
+  // Filter transactions based on the selected month
+  const filteredTransactions = transactions.filter(transaction => {
+    const transactionMonth = new Date(transaction.date).getMonth() + 1;
+    return transactionMonth === parseInt(selectedMonth) && transaction.transactionType === selectedType;;
+  });
 
+  // Calculate total income and total expenses
+  const totalIncome = transactions
+    .filter(transaction => transaction.transactionType === 'income')
+    .reduce((sum, transaction) => sum + parseFloat(transaction.amount), 0);
+
+  const totalExpense = transactions
+    .filter(transaction => transaction.transactionType === 'expense')
+    .reduce((sum, transaction) => sum + parseFloat(transaction.amount), 0);
+
+  const data = [totalIncome, totalExpense, totalIncome - totalExpense];
+  const isDataEmpty = data.every(value => value === 0);
   return (
     <View style={styles.container}>
       <View style={styles.dropdownContainer}>
@@ -33,12 +43,12 @@ const Statitics = () => {
           data={months}
           labelField={"label"}
           placeholder="Month"
-          onChange={(item) => setMonth(item.value)}
+          onChange={handleMonthChange}
           value={selectedMonth}
           valueField="value"
           renderLeftIcon={() => (
             <Image
-              source={require('../../assets/images/arrow-down-2.png')}
+              source={arrowDown}
               style={styles.dropdownIcon}
             />
           )}
@@ -46,33 +56,57 @@ const Statitics = () => {
           style={styles.dropdown}
         />
       </View>
-      <Chart data={data} totalAmount={totalAmount} />
+      <Chart data={data} totalAmount={totalIncome - totalExpense} isDataEmpty={isDataEmpty} />
       <View style={styles.toggleContainer}>
-        <View style={styles.toggleButtonContainer}>
-          <Text style={styles.expenseButton}>Expense</Text>
-        </View>
-        <Text style={styles.incomeButton}>Income</Text>
+        <TouchableOpacity
+          style={[
+            styles.toggleButtonContainer,
+            selectedType === 'expense' && { backgroundColor: '#FD3C4A' }, // Red background for Expense
+          ]}
+          onPress={() => setSelectedType('expense')}
+        >
+          <Text style={[styles.toggleButtonText, selectedType === 'expense' && styles.activeButtonText]}>
+            Expense
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.toggleButtonContainer,
+            selectedType === 'income' && { backgroundColor: '#00A86B' }, // Green background for Income
+          ]}
+          onPress={() => setSelectedType('income')}
+        >
+          <Text style={[styles.toggleButtonText, selectedType === 'income' && styles.activeButtonText]}>
+            Income
+          </Text>
+        </TouchableOpacity>
       </View>
       <View style={{ marginTop: 20 }}>
-        <ProgressBar />
+        <ProgressBar transactions={filteredTransactions} selectedType={selectedType} />
       </View>
     </View>
   );
 };
 
-const Chart = ({ data, totalAmount }) => {
+const Chart = ({ data, totalAmount, isDataEmpty }) => {
   const colors = ['#FCAC12', '#7F3DFF', '#FD3C4A'];
 
   return (
     <View style={styles.pieContainer}>
-      <PieChart
-        widthAndHeight={190}
-        series={data}
-        sliceColor={colors}
-        coverRadius={0.7}
-        coverFill={'#FFF6E5'}
-      />
-      <Text style={styles.totalAmount}>₹ {totalAmount}</Text>
+      {!isDataEmpty ? (
+        <>
+          <PieChart
+            widthAndHeight={190}
+            series={data}
+            sliceColor={colors}
+            coverRadius={0.7}
+            coverFill={'#FFF6E5'}
+          />
+          <Text style={styles.totalAmount}>₹ {totalAmount}</Text>
+        </>
+      ) : (
+        <Text style={styles.noDataText}>No data available</Text>
+      )}
     </View>
   );
 };
@@ -80,103 +114,4 @@ const Chart = ({ data, totalAmount }) => {
 
 export default Statitics;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#FFF6E5',
-  },
-  header: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 20,
-  },
-  dropdownContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  dropdown: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    flexDirection: 'row',
-    borderRadius: 40,
-    borderWidth: 2,
-    alignItems: 'center',
-    width: 130,
-    height: 40,
-    borderColor: '#F1F1FA',
-    backgroundColor: '#FFF',
-  },
-  dropdownIcon: {
-    width: 20,
-    height: 20,
-    marginRight: 8,
-  },
-  pieContainer: {
-    height: 190,
-    width: 190,
-    borderRadius: 95,
-    marginVertical: 30,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  totalAmount: {
-    fontSize: 25,
-    fontWeight: '700',
-    position: 'absolute',
-  },
-  toggleContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginVertical: 20,
-  },
-  toggleButtonContainer: {
-    backgroundColor: '#FFF',
-    borderRadius: 20,
-    padding: 5,
-    marginRight: 5,
-  },
-  expenseButton: {
-    backgroundColor: '#FD3C4A',
-    color: '#FFF',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    textAlign: 'center',
-  },
-  incomeButton: {
-    backgroundColor: '#FFF',
-    color: '#000',
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    textAlign: 'center',
-  },
-  categoriesContainer: {
-    marginTop: 20,
-  },
-  category: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 10,
-  },
-  categoryIndicator: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginRight: 10,
-  },
-  categoryLabel: {
-    flex: 1,
-    fontSize: 16,
-  },
-  categoryAmount: {
-    fontSize: 16,
-    color: '#FD3C4A',
-  },
-});
+
