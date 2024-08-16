@@ -1,9 +1,28 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
 import { accountImage, appLogo, editSymbol, exportDataImage, logoutImage, settingImage } from '../utils/images';
 import styles from '../styles/ProfileStyle';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateName } from '../redux/actions';
 
 const Profile = () => {
+  // create new object of useDispacth hook
+  const dispatch = useDispatch();
+  // Access the name from Redux store
+  const name = useSelector(state => state.transactionsReducer.name);
+  // Track edit mode
+  const [isEditing, setIsEditing] = useState(false);
+  // state for the new name
+  const [newName, setNewName] = useState(name);
+  const handleEdit = () => {
+    if (isEditing) {
+      // Dispatch the new name to Redux
+      dispatch(updateName(newName));
+    }
+    // Toggle edit mode
+    setIsEditing(!isEditing);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -11,10 +30,19 @@ const Profile = () => {
           <Image style={styles.profileImage} source={appLogo} />
         </View>
         <View style={styles.userInfo}>
-          <Text style={styles.usernameText}>Username</Text>
-          <Text style={styles.nameText}>Sarthak Srivastava</Text>
+          {isEditing ? (
+            <TextInput
+              style={styles.nameText}
+              value={newName}
+              onChangeText={setNewName}
+            />
+          ) : (
+            <Text style={styles.nameText}>{name}</Text>
+          )}
         </View>
-        <Image source={editSymbol} />
+        <TouchableOpacity onPress={handleEdit}>
+          <Image source={editSymbol} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.optionsContainer}>

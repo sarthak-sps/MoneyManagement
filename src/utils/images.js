@@ -9,3 +9,5 @@ export const settingImage = require('../../assets/images/setting.png')
 export const exportDataImage = require('../../assets/images/exportData.png')
 export const logoutImage = require('../../assets/images/logout.png')
 export const arrowDown = require('../../assets/images/arrow-down-2.png')
+export const expenseArrow = require('../../assets/images/expenseArrow.png')
+

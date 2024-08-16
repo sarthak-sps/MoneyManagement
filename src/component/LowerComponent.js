@@ -11,10 +11,10 @@ import styles from '../styles/DasboardStyle';
  * @param {Array} props.transactions - The list of transactions.
  */
 
-const LowerComponent = ({ transactions }) => {
+const LowerComponent = ({ transactions, savedTransactions }) => {
     return (
         <View style={styles.lowerContainer}>
-            <TabView transactions={transactions} />
+            <TabView transactions={transactions} savedTransactions={savedTransactions} />
         </View>
     )
 }

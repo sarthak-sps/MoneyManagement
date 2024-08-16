@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { addTransaction } from '../redux/actions';
 import styles from '../styles/AddtransactionStyle';
 import { categoryList, descriptionList } from '../constant';
+import { saveTransactions } from '../function/asyncConfig';
 
 const AddTransactionScreen = () => {
     const [category, setCategory] = useState('');
@@ -29,7 +30,7 @@ const AddTransactionScreen = () => {
             amount,
             date: selectedDate,
         };
-
+        saveTransactions(transaction);
         dispatch(addTransaction(transaction));
         clearFieldData();
     };

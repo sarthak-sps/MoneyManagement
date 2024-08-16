@@ -38,7 +38,7 @@ const HomeText = (props) => {
         <Text style={styles.subtext}>Counter and distribute the income {'\n'}correctly...</Text>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('BottomTab')}>
+      <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Login')}>
         <Text style={{ color: 'white' }}>Continue</Text>
       </TouchableOpacity>
     </View>

@@ -12,7 +12,7 @@ import { tabdata } from '../constant';
  * @param {Object} props
  * @param {Array} props.transactions - The list of transactions.
  */
-const TabView = ({ transactions }) => {
+const TabView = ({ transactions,savedTransactions }) => {
 
     const [selectedTab, setSelectedTab] = useState(tabdata[0]);
     const [filteredTransactions, setFilteredTransactions] = useState([]);
@@ -23,19 +23,19 @@ const TabView = ({ transactions }) => {
     const filterListByTab = (tab) => {
         switch (tab) {
             case 'Today':
-                return transactions.filter(transaction => transaction.date === todayDate);
+                return savedTransactions.filter(transaction => transaction.date === todayDate);
             case 'Week':
                 const startOfWeek = new Date(currentDate);
                 startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
                 const endOfWeek = new Date(startOfWeek);
                 endOfWeek.setDate(startOfWeek.getDate() + 6);
-                return transactions.filter(transaction => new Date(transaction.date) >= startOfWeek && new Date(transaction.date) <= endOfWeek);
+                return savedTransactions.filter(transaction => new Date(transaction.date) >= startOfWeek && new Date(transaction.date) <= endOfWeek);
             case 'Month':
-                return transactions.filter(transaction => new Date(transaction.date).getMonth() === currentDate.getMonth() && new Date(transaction.date).getFullYear() === currentDate.getFullYear());
+                return savedTransactions.filter(transaction => new Date(transaction.date).getMonth() === currentDate.getMonth() && new Date(transaction.date).getFullYear() === currentDate.getFullYear());
             case 'Year':
-                return transactions.filter(transaction => new Date(transaction.date).getFullYear() === currentDate.getFullYear());
+                return savedTransactions.filter(transaction => new Date(transaction.date).getFullYear() === currentDate.getFullYear());
             default:
-                return transactions;
+                return savedTransactions;
         }
     }
 
@@ -51,17 +51,22 @@ const TabView = ({ transactions }) => {
                 <FlatList
                     data={tabdata}
                     renderItem={({ item }) => (
-                        <View>
-                            <TouchableOpacity
-                                style={[item === selectedTab && styles.selectedTabItem]}
-                                onPress={() => handleTabPress(item)}
-                            >
-                                <Text style={item === selectedTab ? styles.selectedTabText : styles.tabText}>{item}</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity
+                            style={[
+                                styles.tabItem,
+                                item === selectedTab && styles.selectedTabItem
+                            ]}
+                            onPress={() => handleTabPress(item)}
+                        >
+                            <Text style={item === selectedTab ? styles.selectedTabText : styles.tabText}>
+                                {item}
+                            </Text>
+                        </TouchableOpacity>
                     )}
+                    keyExtractor={(item) => item}
                     contentContainerStyle={styles.tabContentContainer}
                     horizontal
+                    showsHorizontalScrollIndicator={false}
                 />
             </View>
             <View style={styles.recentTransactionHeader}>

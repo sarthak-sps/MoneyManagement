@@ -1,15 +1,27 @@
 import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/TransactionStyle';
 import { months, categories } from '../constant';
+import { loadTransactions } from '../function/asyncConfig';
 
 const Transaction = () => {
   const transactions = useSelector(state => state.transactionsReducer.transactions);
   const selectedMonthValue = useSelector(state => state.transactionsReducer.selectedMonth);
   const selectedCategoryValue = useSelector(state => state.transactionsReducer.selectedCategory);
+  // Local state for transactions loaded from AsyncStorage
+  const [savedTransactions, setSavedTransactions] = useState([]);
 
+  // Load transactions when component mounts
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await loadTransactions();
+      setSavedTransactions(data);
+    };
+
+    fetchData();
+  }, [transactions]);
   // Map selected values to labels
   const selectedMonth = months.find(month => month.value === selectedMonthValue)?.label || 'Select Month';
   const selectedCategory = categories.find(category => category.value === selectedCategoryValue)?.label || 'Select Category';
@@ -20,10 +32,10 @@ const Transaction = () => {
         selectedCategory={selectedCategory}
       />
       <Filterresult
-        transactions={transactions}
+        savedTransactions={savedTransactions}
         selectedMonth={selectedMonth}
         selectedCategory={selectedCategory}
-        selectedDate={transactions.date}
+        selectedDate={savedTransactions.date}
 
       />
     </View>
@@ -74,24 +86,24 @@ const FilterComponent = ({ selectedMonth, selectedCategory }) => {
     </View>
   );
 };
-const Filterresult = ({ transactions, selectedMonth, selectedCategory,selectedDate }) => {
+const Filterresult = ({ savedTransactions, selectedMonth, selectedCategory, selectedDate }) => {
   // Convert selectedMonth label to corresponding number
   const selectedMonthValue = months.find(month => month.label === selectedMonth)?.value;
 
   // Filter transactions based on selectedMonth and selectedCategory
-  const filteredTransactions = transactions.filter(transaction => {
-    const transactionMonth = new Date(transaction.date).getMonth() + 1; // getMonth() returns 0-indexed month
+  const filteredTransactions = savedTransactions.filter(transaction => {
+    const transactionMonth = new Date(transaction.date).getMonth() + 1; // getMonth() 
 
     // Check if the transaction matches the selected month
     const isMonthMatch = transactionMonth.toString() === selectedMonthValue;
 
     // Check if the transaction matches the selected category
-    const isCategoryMatch = selectedCategory === 'All' || transaction.transactionType === selectedCategory.toLowerCase();
+    const isCategoryMatch = selectedCategory === 'All' || savedTransactions.transactionType === selectedCategory.toLowerCase();
 
     return isMonthMatch && isCategoryMatch;
   });
 
-  console.log({ transactions });
+  console.log({ savedTransactions });
   console.log({ selectedMonth });
   console.log({ selectedCategory });
 
