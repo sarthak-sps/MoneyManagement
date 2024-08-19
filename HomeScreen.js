@@ -16,8 +16,10 @@ import {
   TouchableOpacity
 } from 'react-native';
 import { widthPercentageToDP } from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -25,12 +27,23 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Image style={styles.Image} source={require('../MoneyManagement/assets/images/applogo.png')} >
       </Image>
-      <HomeText navigation={navigation} />
+      <HomeText />
     </View>
   )
 }
 
-const HomeText = (props) => {
+const HomeText = () => {
+  const navigation = useNavigation()
+  const transactions = useSelector(state => state.transactions?.transactions || []);
+  const handleOnPress = () => {
+    // If there are transactions (user is logged in), navigate to Dashboard
+    if (transactions.length > 0) {
+      navigation.navigate('BottomTab');
+    } else {
+      // If no transactions (user is not logged in), navigate to Login
+      navigation.navigate('Login');
+    }
+  };
   return (
     <View style={styles.textContainer}>
       <View style={{ flexDirection: 'column', marginTop: 80 }}>
@@ -38,7 +51,7 @@ const HomeText = (props) => {
         <Text style={styles.subtext}>Counter and distribute the income {'\n'}correctly...</Text>
       </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Login')}>
+      <TouchableOpacity style={styles.button} onPress={handleOnPress}>
         <Text style={{ color: 'white' }}>Continue</Text>
       </TouchableOpacity>
     </View>
@@ -48,13 +61,13 @@ const HomeText = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    
+
   },
   Image: {
     flex: 0.5,
     width: widthPercentageToDP('100%'),
-    borderBottomLeftRadius:50,
-    borderBottomRightRadius:50
+    borderBottomLeftRadius: 50,
+    borderBottomRightRadius: 50
   },
   textContainer: {
     flex: 0.5,

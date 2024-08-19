@@ -3,6 +3,7 @@ import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import RecentTransaction from './RecentTransaction';
 import styles from '../styles/DasboardStyle';
 import { tabdata } from '../constant';
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * TabView Component
@@ -12,8 +13,8 @@ import { tabdata } from '../constant';
  * @param {Object} props
  * @param {Array} props.transactions - The list of transactions.
  */
-const TabView = ({ transactions,savedTransactions }) => {
-
+const TabView = ({ transactions }) => {
+    const navigation = useNavigation()
     const [selectedTab, setSelectedTab] = useState(tabdata[0]);
     const [filteredTransactions, setFilteredTransactions] = useState([]);
 
@@ -23,19 +24,19 @@ const TabView = ({ transactions,savedTransactions }) => {
     const filterListByTab = (tab) => {
         switch (tab) {
             case 'Today':
-                return savedTransactions.filter(transaction => transaction.date === todayDate);
+                return transactions.filter(transaction => transaction.date === todayDate);
             case 'Week':
                 const startOfWeek = new Date(currentDate);
                 startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
                 const endOfWeek = new Date(startOfWeek);
                 endOfWeek.setDate(startOfWeek.getDate() + 6);
-                return savedTransactions.filter(transaction => new Date(transaction.date) >= startOfWeek && new Date(transaction.date) <= endOfWeek);
+                return transactions.filter(transaction => new Date(transaction.date) >= startOfWeek && new Date(transaction.date) <= endOfWeek);
             case 'Month':
-                return savedTransactions.filter(transaction => new Date(transaction.date).getMonth() === currentDate.getMonth() && new Date(transaction.date).getFullYear() === currentDate.getFullYear());
+                return transactions.filter(transaction => new Date(transaction.date).getMonth() === currentDate.getMonth() && new Date(transaction.date).getFullYear() === currentDate.getFullYear());
             case 'Year':
-                return savedTransactions.filter(transaction => new Date(transaction.date).getFullYear() === currentDate.getFullYear());
+                return transactions.filter(transaction => new Date(transaction.date).getFullYear() === currentDate.getFullYear());
             default:
-                return savedTransactions;
+                return transactions;
         }
     }
 
@@ -71,7 +72,10 @@ const TabView = ({ transactions,savedTransactions }) => {
             </View>
             <View style={styles.recentTransactionHeader}>
                 <Text style={styles.recentTransactionText}>Recent Transaction</Text>
+                <TouchableOpacity onPress={()=>navigation.navigate('Transaction')}>
                 <Text style={styles.recentTransactionText}>View All</Text>
+                </TouchableOpacity>
+               
             </View>
             <RecentTransaction filteredTransactions={filteredTransactions} />
         </View>

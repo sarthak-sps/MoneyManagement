@@ -1,5 +1,5 @@
 import { saveTransactions } from '../function/asyncConfig';
-import { ADD_TRANSACTION, SELECTED_MONTH, SELECTED_CATEGORY, UPDATE_NAME, SET_USER } from '../redux/action_type';
+import { ADD_TRANSACTION, SELECTED_MONTH, SELECTED_CATEGORY, UPDATE_NAME, SET_USER, RESET_STORE } from '../redux/action_type';
 
 const initialState = {
     transactions: [],
@@ -13,7 +13,6 @@ const initialState = {
 const transactionsReducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_TRANSACTION:
-            saveTransactions([...state.transactions, action.payload])
             return {
                 ...state,
                 transactions: [...state.transactions, action.payload],
@@ -39,6 +38,10 @@ const transactionsReducer = (state = initialState, action) => {
                 name: action.payload.name,
                 email: action.payload.email,
             };
+        case RESET_STORE:
+            return {
+                ...initialState
+            }
         default:
             return state;
     }

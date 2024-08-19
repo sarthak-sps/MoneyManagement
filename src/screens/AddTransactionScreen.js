@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { Calendar } from 'react-native-calendars';
 import { useDispatch } from 'react-redux';
 import { addTransaction } from '../redux/actions';
 import styles from '../styles/AddtransactionStyle';
 import { categoryList, descriptionList } from '../constant';
-import { saveTransactions } from '../function/asyncConfig';
 
 const AddTransactionScreen = () => {
     const [category, setCategory] = useState('');
@@ -30,7 +29,7 @@ const AddTransactionScreen = () => {
             amount,
             date: selectedDate,
         };
-        saveTransactions(transaction);
+
         dispatch(addTransaction(transaction));
         clearFieldData();
     };

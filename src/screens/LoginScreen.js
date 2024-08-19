@@ -3,11 +3,14 @@ import styles from "../styles/LoginScreenStyle";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { setUser } from "../redux/actions";
+import { SingleButtonDialog } from "../component/AlertDialog";
 
 const LoginScreen = ({ navigation }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showDialog, setShowDialog] = useState(false)
+    const [dialogMessage, setDialogMessage] = useState('')
     const dispatch = useDispatch();
     const handleLogin = () => {
         // Save the user information in Redux store
@@ -15,10 +18,12 @@ const LoginScreen = ({ navigation }) => {
         // Navigate to another screen 
         if (!name || !email || !password) {
             // If any field is empty, show a meaningful warning
-            console.warn("Please complete all fields before proceeding.");
+            setDialogMessage("Please complete all fields before proceeding")
+            setShowDialog(true)
         } else if (password.length < 8) {
             // If password is less than 8 characters, show a warning
-            console.warn("Password must be at least 8 characters long.");
+            setDialogMessage("Password must be at least 8 characters long")
+            setShowDialog(true)
         } else {
             // All validations passed, proceed with navigation
             navigation.navigate('BottomTab');
@@ -61,6 +66,7 @@ const LoginScreen = ({ navigation }) => {
             <TouchableOpacity >
                 <Text style={styles.createAccountText}>Create an account</Text>
             </TouchableOpacity>
+            {showDialog && <SingleButtonDialog showDialog={showDialog} setShowDialog={setShowDialog} dialogMessage={dialogMessage} />}
         </View>
     );
 }
