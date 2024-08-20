@@ -1,18 +1,19 @@
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import { FlatList, Image, Text, View } from 'react-native';
+import React from 'react';
 import { Dropdown } from 'react-native-element-dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/TransactionStyle';
 import { months, categories } from '../constant';
 
 const Transaction = () => {
-  const transactions = useSelector(state => state.transactionsReducer.transactions);
-  const selectedMonthValue = useSelector(state => state.transactionsReducer.selectedMonth);
-  const selectedCategoryValue = useSelector(state => state.transactionsReducer.selectedCategory);
+  const transactions = useSelector(state => state.transactions.transactions);
+  const selectedMonthValue = useSelector(state => state.transactions.selectedMonth);
+  const selectedCategoryValue = useSelector(state => state.transactions.selectedCategory);
 
   // Map selected values to labels
   const selectedMonth = months.find(month => month.value === selectedMonthValue)?.label || 'Select Month';
   const selectedCategory = categories.find(category => category.value === selectedCategoryValue)?.label || 'Select Category';
+
   return (
     <View style={styles.container}>
       <FilterComponent
@@ -23,8 +24,6 @@ const Transaction = () => {
         transactions={transactions}
         selectedMonth={selectedMonth}
         selectedCategory={selectedCategory}
-        selectedDate={transactions.date}
-
       />
     </View>
   );
@@ -74,13 +73,14 @@ const FilterComponent = ({ selectedMonth, selectedCategory }) => {
     </View>
   );
 };
-const Filterresult = ({ transactions, selectedMonth, selectedCategory,selectedDate }) => {
+
+const Filterresult = ({ transactions, selectedMonth, selectedCategory }) => {
   // Convert selectedMonth label to corresponding number
   const selectedMonthValue = months.find(month => month.label === selectedMonth)?.value;
 
   // Filter transactions based on selectedMonth and selectedCategory
   const filteredTransactions = transactions.filter(transaction => {
-    const transactionMonth = new Date(transaction.date).getMonth() + 1; // getMonth() returns 0-indexed month
+    const transactionMonth = new Date(transaction.date).getMonth() + 1;
 
     // Check if the transaction matches the selected month
     const isMonthMatch = transactionMonth.toString() === selectedMonthValue;
@@ -90,10 +90,6 @@ const Filterresult = ({ transactions, selectedMonth, selectedCategory,selectedDa
 
     return isMonthMatch && isCategoryMatch;
   });
-
-  console.log({ transactions });
-  console.log({ selectedMonth });
-  console.log({ selectedCategory });
 
   const formatTime = (selectedDate) => {
     const date = new Date(selectedDate);
@@ -134,6 +130,5 @@ const Filterresult = ({ transactions, selectedMonth, selectedCategory,selectedDa
     </View>
   );
 };
+
 export default Transaction;
-
-

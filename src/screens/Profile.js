@@ -1,9 +1,33 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
 import { accountImage, appLogo, editSymbol, exportDataImage, logoutImage, settingImage } from '../utils/images';
 import styles from '../styles/ProfileStyle';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, resetStore, updateName } from '../redux/actions';
+import { useNavigation } from '@react-navigation/native';
+import storage from '@react-native-async-storage/async-storage';
+import {LogoutDialog} from '../component/AlertDialog';
 
 const Profile = () => {
+  // create new object of useDispacth hook
+  const dispatch = useDispatch();
+  const navigation = useNavigation()
+  // Access the name from Redux store
+  const name = useSelector(state => state.transactions.name);
+  const [showDialog, setShowDialog] = useState(false)
+  // Track edit mode
+  const [isEditing, setIsEditing] = useState(false);
+  // state for the new name
+  const [newName, setNewName] = useState(name);
+  const handleEdit = () => {
+    if (isEditing) {
+      // Dispatch the new name to Redux
+      dispatch(updateName(newName));
+    }
+    // Toggle edit mode
+    setIsEditing(!isEditing);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -11,10 +35,19 @@ const Profile = () => {
           <Image style={styles.profileImage} source={appLogo} />
         </View>
         <View style={styles.userInfo}>
-          <Text style={styles.usernameText}>Username</Text>
-          <Text style={styles.nameText}>Sarthak Srivastava</Text>
+          {isEditing ? (
+            <TextInput
+              style={styles.nameText}
+              value={newName}
+              onChangeText={setNewName}
+            />
+          ) : (
+            <Text style={styles.nameText}>{name}</Text>
+          )}
         </View>
-        <Image source={editSymbol} />
+        <TouchableOpacity onPress={handleEdit}>
+          <Image source={editSymbol} />
+        </TouchableOpacity>
       </View>
 
       <View style={styles.optionsContainer}>
@@ -33,11 +66,12 @@ const Profile = () => {
           <Text style={styles.optionText}>Export Data</Text>
         </TouchableOpacity>
         <View style={styles.divider}></View>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={() => setShowDialog(true)}>
           <Image source={logoutImage} />
           <Text style={styles.optionText}>Logout</Text>
         </TouchableOpacity>
       </View>
+      {showDialog && <LogoutDialog showDialog={showDialog} setShowDialog={setShowDialog} />}
     </View>
   );
 };

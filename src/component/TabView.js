@@ -3,6 +3,7 @@ import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import RecentTransaction from './RecentTransaction';
 import styles from '../styles/DasboardStyle';
 import { tabdata } from '../constant';
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * TabView Component
@@ -13,7 +14,7 @@ import { tabdata } from '../constant';
  * @param {Array} props.transactions - The list of transactions.
  */
 const TabView = ({ transactions }) => {
-
+    const navigation = useNavigation()
     const [selectedTab, setSelectedTab] = useState(tabdata[0]);
     const [filteredTransactions, setFilteredTransactions] = useState([]);
 
@@ -51,22 +52,30 @@ const TabView = ({ transactions }) => {
                 <FlatList
                     data={tabdata}
                     renderItem={({ item }) => (
-                        <View>
-                            <TouchableOpacity
-                                style={[item === selectedTab && styles.selectedTabItem]}
-                                onPress={() => handleTabPress(item)}
-                            >
-                                <Text style={item === selectedTab ? styles.selectedTabText : styles.tabText}>{item}</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity
+                            style={[
+                                styles.tabItem,
+                                item === selectedTab && styles.selectedTabItem
+                            ]}
+                            onPress={() => handleTabPress(item)}
+                        >
+                            <Text style={item === selectedTab ? styles.selectedTabText : styles.tabText}>
+                                {item}
+                            </Text>
+                        </TouchableOpacity>
                     )}
+                    keyExtractor={(item) => item}
                     contentContainerStyle={styles.tabContentContainer}
                     horizontal
+                    showsHorizontalScrollIndicator={false}
                 />
             </View>
             <View style={styles.recentTransactionHeader}>
                 <Text style={styles.recentTransactionText}>Recent Transaction</Text>
+                <TouchableOpacity onPress={()=>navigation.navigate('Transaction')}>
                 <Text style={styles.recentTransactionText}>View All</Text>
+                </TouchableOpacity>
+               
             </View>
             <RecentTransaction filteredTransactions={filteredTransactions} />
         </View>

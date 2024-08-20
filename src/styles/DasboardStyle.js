@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     accountIncomeContainer: {
         backgroundColor: '#00A86B',
         width: 164,
-        height: 64,
+        height: 74,
         margin: 20,
         borderRadius: 30,
         padding: 10,
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     accountExpensesContainer: {
         backgroundColor: '#FD3C4A',
         width: 164,
-        height: 64,
+        height: 74,
         margin: 20,
         borderRadius: 30,
         padding: 10,
@@ -87,6 +87,7 @@ const styles = StyleSheet.create({
     accountStatusRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
+        
     },
     statusIconContainer: {
         height: 48,
@@ -118,20 +119,24 @@ const styles = StyleSheet.create({
     tabViewContainer: {
         marginTop: 30,
         marginHorizontal: 10,
-        borderRadius: 16,
+        borderRadius: 30,
         borderColor: 'white',
         borderWidth: 1,
+        backgroundColor: '#A89696',
     },
     tabContentContainer: {
         width: '100%',
         justifyContent: 'space-between',
     },
-    selectedTabItem: {
+    tabItem: {
         paddingHorizontal: 15,
-        backgroundColor: 'black',
-        borderRadius: 10,
-        color: 'white',
+        paddingVertical: 10,
+        borderRadius: 20, 
+        marginHorizontal: 5,
     },
+    selectedTabItem: {
+        backgroundColor: 'black',
+    },  
     selectedTabText: {
         color: 'white',
         fontSize: 20,

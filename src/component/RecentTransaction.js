@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, Image, Text } from 'react-native';
 import styles from '../styles/DasboardStyle';
-import { incomeImage, expenseImage, ruppeSymbol } from '../utils/images';
+import { incomeImage, expenseImage, ruppeSymbol, expenseArrow } from '../utils/images';
 
 /**
  * RecentTransaction Component
@@ -16,7 +16,7 @@ const RecentTransaction = ({ filteredTransactions }) => {
             case 'income':
                 return incomeImage;
             case 'expense':
-                return expenseImage;
+                return expenseArrow;
         }
     }
 

@@ -1,3 +1,6 @@
 export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 export const SELECTED_MONTH = 'SELECTED_MONTH';
 export const SELECTED_CATEGORY = 'SELECTED_CATEGORY';
+export const UPDATE_NAME = 'UPDATE_NAME';
+export const SET_USER = 'SET_USER';
+export const RESET_STORE = 'RESET_STORE';

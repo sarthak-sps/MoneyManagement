@@ -12,8 +12,8 @@ import { months } from '../constant';
 const Statitics = () => {
   const [selectedType, setSelectedType] = useState('expense');
   const dispatch = useDispatch();
-  const selectedMonth = useSelector(state => state.transactionsReducer.selectedMonth);
-  const transactions = useSelector(state => state.transactionsReducer.transactions);
+  const selectedMonth = useSelector(state => state.transactions.selectedMonth);
+  const transactions = useSelector(state => state.transactions.transactions);
   const handleMonthChange = (item) => {
     dispatch({ type: 'SELECTED_MONTH', payload: item.value });
   };

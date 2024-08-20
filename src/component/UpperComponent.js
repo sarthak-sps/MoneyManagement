@@ -5,6 +5,7 @@ import AccountBalance from './AccountBalance';
 import AccountStatus from './AccountStatus';
 import { appLogo } from '../utils/images'
 import { daysOfWeek, monthsOfYear } from '../constant';
+import { useSelector } from 'react-redux';
 
 /**
  * UpperComponent Component
@@ -27,7 +28,7 @@ const UpperComponent = ({ totalIncome, totalExpense }) => {
 
     const currentMonth = monthsOfYear[currentDate.getMonth()];
 
-
+    const name = useSelector(state => state.transactions.name);
     return (
         <View style={styles.upperContainer}>
             <View style={styles.headerContainer}>
@@ -40,7 +41,7 @@ const UpperComponent = ({ totalIncome, totalExpense }) => {
                     <View style={styles.imageWrapper}>
                         <Image style={styles.profileImage} source={appLogo} />
                     </View>
-                    <Text style={styles.profileName}>Sarthak</Text>
+                    <Text style={styles.profileName}>{name}</Text>
                 </View>
             </View>
             <View style={styles.divider} />

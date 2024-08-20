@@ -51,15 +51,23 @@ const styles = StyleSheet.create({
     },
     toggleContainer: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         marginVertical: 20,
+        width: '100%',
+        backgroundColor: '#FFFEFE',
+        borderRadius: 20,
     },
     toggleButtonContainer: {
         backgroundColor: '#FFF',
         borderRadius: 20,
-        padding: 5,
-        marginRight: 5,
+        padding: 10,
+        width: '50%',
+        height: 48,
+        marginEnd: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
+
     expenseButton: {
         backgroundColor: '#FD3C4A',
         color: '#FFF',
@@ -75,6 +83,19 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 20,
         textAlign: 'center',
+    },
+    toggleButtonText: {
+        color: 'black',
+        alignSelf: 'center',
+        fontSize: 16,
+        fontWeight: '500',
+    },
+    activeButtonText: {
+        color: 'white',
+        alignSelf: 'center',
+        fontSize: 16,
+        fontWeight: '500',
+        fontFamily: 'Inter'
     },
     categoriesContainer: {
         marginTop: 20,

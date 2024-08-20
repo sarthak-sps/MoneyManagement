@@ -1,9 +1,8 @@
-import { useState } from "react";
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSelector } from "react-redux";
 import styles from "../styles/DasboardStyle";
 import UpperComponent from "../component/UpperComponent";
 import LowerComponent from "../component/LowerComponent";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 /**
  * DashBoardScreen Component
@@ -11,7 +10,8 @@ import LowerComponent from "../component/LowerComponent";
  */
 const DashBoardScreen = () => {
   // Retrieve transactions from the Redux store
-  const transactions = useSelector(state => state.transactionsReducer.transactions)
+  const transactions = useSelector(state => state.transactions?.transactions || []);
+  console.log(transactions)
 
   // Calculate total income and total expenses
   const totalIncome = transactions
@@ -24,10 +24,11 @@ const DashBoardScreen = () => {
 
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <UpperComponent totalIncome={totalIncome} totalExpense={totalExpense} />
       <LowerComponent transactions={transactions} />
-    </View>
+    </SafeAreaView>
+
   )
 }
 export default DashBoardScreen;

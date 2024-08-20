@@ -1,9 +1,25 @@
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import transactionsReducer from './reducer';
-const reducer = combineReducers({
-    transactionsReducer: transactionsReducer,
-  });
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from '@react-native-async-storage/async-storage';
+import { thunk } from 'redux-thunk';
+// Create the persist configuration object
+const persistConfig = {
+  key: 'root',
+  storage, // storage to use for persistence (localStorage, AsyncStorage, etc.)
+};
 
-const store = createStore(reducer);
+const rootReducer = combineReducers({
+  transactions: transactionsReducer,
+});
 
-export default store;
+// Wrap your root reducer with persistReducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+// Create the Redux store with the persisted reducer
+const store = createStore(persistedReducer, applyMiddleware(thunk));
+
+// Create a persistor to persist and rehydrate the store
+const persistor = persistStore(store);
+
+export { store, persistor };
