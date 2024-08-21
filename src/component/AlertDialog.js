@@ -4,6 +4,7 @@ import styles from "../styles/AlertDialogStyle"
 import { useDispatch } from "react-redux"
 import { useNavigation } from "@react-navigation/native"
 import { logout } from "../redux/actions"
+import analytics from "@react-native-firebase/analytics"
 
 const LogoutDialog = ({ showDialog, setShowDialog }) => {
     const dispatch = useDispatch()
@@ -11,6 +12,8 @@ const LogoutDialog = ({ showDialog, setShowDialog }) => {
     const handleLogout = () => {
         setShowDialog(false)
         dispatch(logout()); // Dispatch the logout thunk
+        analytics().logEvent('logout', {
+        });
         navigation.navigate('Login'); // Navigate to the login screen
     };
 

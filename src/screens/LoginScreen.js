@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { setUser } from "../redux/actions";
 import { SingleButtonDialog } from "../component/AlertDialog";
+import analytics from "@react-native-firebase/analytics";
 
 const LoginScreen = ({ navigation }) => {
     const [name, setName] = useState('');
@@ -26,6 +27,9 @@ const LoginScreen = ({ navigation }) => {
             setShowDialog(true)
         } else {
             // All validations passed, proceed with navigation
+            analytics().logEvent('login', {
+                name: name
+            });
             navigation.navigate('BottomTab');
             setName('')
             setEmail('')
