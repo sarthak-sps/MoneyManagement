@@ -1,11 +1,12 @@
 import React from 'react';
-import { View, Text, Image } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from '../styles/DasboardStyle';
 import AccountBalance from './AccountBalance';
 import AccountStatus from './AccountStatus';
 import { appLogo } from '../utils/images'
 import { daysOfWeek, monthsOfYear } from '../constant';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 /**
  * UpperComponent Component
@@ -29,6 +30,8 @@ const UpperComponent = ({ totalIncome, totalExpense }) => {
     const currentMonth = monthsOfYear[currentDate.getMonth()];
 
     const name = useSelector(state => state.transactions.name);
+
+    const navigation = useNavigation()
     return (
         <View style={styles.upperContainer}>
             <View style={styles.headerContainer}>
@@ -38,9 +41,9 @@ const UpperComponent = ({ totalIncome, totalExpense }) => {
                 </View>
 
                 <View style={styles.profileContainer}>
-                    <View style={styles.imageWrapper}>
+                    <TouchableOpacity style={styles.imageWrapper} onPress={() => navigation.navigate('Profile')}>
                         <Image style={styles.profileImage} source={appLogo} />
-                    </View>
+                    </TouchableOpacity>
                     <Text style={styles.profileName}>{name}</Text>
                 </View>
             </View>

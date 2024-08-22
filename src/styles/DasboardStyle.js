@@ -14,6 +14,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         margin: 20,
+        alignItems:'center'
     },
     headerLeftText: {
         fontSize: 14,
@@ -55,6 +56,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignSelf: 'center',
+        alignItems: 'center',
     },
     accountBalanceText: {
         fontSize: 14,
@@ -63,6 +65,7 @@ const styles = StyleSheet.create({
         fontSize: 40,
         fontWeight: '500',
         color: 'black',
+        alignSelf: 'center'
     },
     accountStatusContainer: {
         flexDirection: 'row',
@@ -87,7 +90,7 @@ const styles = StyleSheet.create({
     accountStatusRow: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        
+
     },
     statusIconContainer: {
         height: 48,
@@ -131,12 +134,12 @@ const styles = StyleSheet.create({
     tabItem: {
         paddingHorizontal: 15,
         paddingVertical: 10,
-        borderRadius: 20, 
+        borderRadius: 20,
         marginHorizontal: 5,
     },
     selectedTabItem: {
         backgroundColor: 'black',
-    },  
+    },
     selectedTabText: {
         color: 'white',
         fontSize: 20,
@@ -182,6 +185,7 @@ const styles = StyleSheet.create({
     transactionCategoryText: {
         verticalAlign: 'middle',
         fontSize: 15,
+        alignSelf: 'center'
     },
 });
 export default styles;

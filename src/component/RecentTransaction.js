@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, Image, Text } from 'react-native';
 import styles from '../styles/DasboardStyle';
-import { incomeImage, expenseImage, ruppeSymbol, expenseArrow } from '../utils/images';
+import { incomeImage, ruppeSymbol, expenseArrow } from '../utils/images';
 
 /**
  * RecentTransaction Component
@@ -19,11 +19,11 @@ const RecentTransaction = ({ filteredTransactions }) => {
                 return expenseArrow;
         }
     }
-
+    const recentTransactions = filteredTransactions.reverse().slice(0, 3);
     return (
         <View>
             <FlatList
-                data={filteredTransactions}
+                data={recentTransactions}
                 renderItem={({ item }) => (
                     <View style={styles.transactionItem}>
                         <View style={styles.transactionItemLeft}>

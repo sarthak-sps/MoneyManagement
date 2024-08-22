@@ -38,29 +38,40 @@ const styles = StyleSheet.create({
     toggleContainer: {
         flexDirection: 'row',
         alignSelf: 'center',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         width: '60%',
         marginTop: 20,
     },
     toggleButton: {
-        paddingHorizontal: 15,
-        borderRadius: 10,
+        backgroundColor: '#FFF',
+        borderRadius: 20,
+        padding: 10,
+        width: '50%',
+        height: 48,
+        marginEnd: 10,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     incomeButton: {
-        backgroundColor: 'green',
+        backgroundColor: 'white',
     },
     incomeButtonActive: {
-        backgroundColor: '#006400',
+        backgroundColor: 'green',
     },
     expenseButton: {
-        backgroundColor: 'red',
+        backgroundColor: 'white',
     },
     expenseButtonActive: {
         backgroundColor: '#8B0000',
     },
-    toggleButtonText: {
+    activeToggleButtonText: {
         fontSize: 20,
         color: 'white',
+        fontWeight: 'bold',
+    },
+    inActiveToggleButtonText: {
+        fontSize: 20,
+        color: 'black',
     },
     datePickerContainer: {
         marginHorizontal: 20,
@@ -86,6 +97,28 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600',
         color: 'white',
+    },
+    modalOverlay: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContainer: {
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 20,
+        width: '80%',
+    },
+    closeButton: {
+        alignSelf: 'flex-end',
+    },
+    closeButtonText: {
+        fontSize: 18,
+        color: 'red',
+    },
+    calendar: {
+        marginTop: 20,
     },
 });
 export default styles;

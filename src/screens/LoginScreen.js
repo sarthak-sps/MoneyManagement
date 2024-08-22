@@ -12,6 +12,11 @@ const LoginScreen = ({ navigation }) => {
     const [showDialog, setShowDialog] = useState(false)
     const [dialogMessage, setDialogMessage] = useState('')
     const dispatch = useDispatch();
+
+    const validEmail = (email) => {
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        return emailRegex.test(email)
+    }
     const handleLogin = () => {
         // Save the user information in Redux store
         dispatch(setUser({ name, email }));
@@ -20,7 +25,13 @@ const LoginScreen = ({ navigation }) => {
             // If any field is empty, show a meaningful warning
             setDialogMessage("Please complete all fields before proceeding")
             setShowDialog(true)
-        } else if (password.length < 8) {
+        }
+        else if (!validEmail(email)) {
+            // Validate email format
+            setDialogMessage("Please enter a valid email address");
+            setShowDialog(true);
+        }
+        else if (password.length < 8) {
             // If password is less than 8 characters, show a warning
             setDialogMessage("Password must be at least 8 characters long")
             setShowDialog(true)
