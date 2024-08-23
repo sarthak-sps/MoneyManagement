@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import styles from '../styles/DasboardStyle';
 import AccountBalance from './AccountBalance';

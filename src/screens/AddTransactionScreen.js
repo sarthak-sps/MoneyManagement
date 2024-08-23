@@ -41,12 +41,12 @@ const AddTransactionScreen = () => {
             transactionType,
             amount,
             date: selectedDate,
-            time:new Date().toLocaleTimeString([], {
+            time: new Date().toLocaleTimeString([], {
                 hour: 'numeric',
                 minute: 'numeric',
                 hour12: true,
-              })
-          
+            })
+
         };
 
         dispatch(addTransaction(transaction));
@@ -88,6 +88,7 @@ const AddTransactionScreen = () => {
                             placeholder="Category"
                             onChange={(item) => setCategory(item.value)}
                             value={category}
+                            search={true}
                         />
                     </View>
                     <View style={styles.dropdownContainer}>
@@ -99,6 +100,7 @@ const AddTransactionScreen = () => {
                             placeholder="Description"
                             onChange={(item) => setDescription(item.value)}
                             value={description}
+                            search={true}
                         />
                     </View>
                     <View style={styles.toggleContainer}>
