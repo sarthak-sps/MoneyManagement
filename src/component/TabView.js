@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, FlatList, Text, TouchableOpacity } from 'react-native';
 import RecentTransaction from './RecentTransaction';
 import styles from '../styles/DasboardStyle';
@@ -46,6 +46,11 @@ const TabView = ({ transactions }) => {
         setFilteredTransactions(filtered);
     }
 
+    useEffect(() => {
+        const initialFilteredTransactions = filterListByTab(selectedTab);
+        setFilteredTransactions(initialFilteredTransactions);
+    }, [transactions]);
+
     return (
         <View>
             <View style={styles.tabViewContainer}>
@@ -72,10 +77,10 @@ const TabView = ({ transactions }) => {
             </View>
             <View style={styles.recentTransactionHeader}>
                 <Text style={styles.recentTransactionText}>Recent Transaction</Text>
-                <TouchableOpacity onPress={()=>navigation.navigate('Transaction')}>
-                <Text style={styles.recentTransactionText}>View All</Text>
+                <TouchableOpacity onPress={() => navigation.navigate('Transaction')}>
+                    <Text style={styles.recentTransactionText}>View All</Text>
                 </TouchableOpacity>
-               
+
             </View>
             <RecentTransaction filteredTransactions={filteredTransactions} />
         </View>

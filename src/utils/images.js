@@ -10,4 +10,24 @@ export const exportDataImage = require('../../assets/images/exportData.png')
 export const logoutImage = require('../../assets/images/logout.png')
 export const arrowDown = require('../../assets/images/arrow-down-2.png')
 export const expenseArrow = require('../../assets/images/expenseArrow.png')
+export const lock = require('../../assets/images/locked.png')
+export const plus = require('../../assets/images/plus.png')
+export const term = require('../../assets/images/terms-and-conditions.png')
+export const notification = require('../../assets/images/notification.png')
+export const faq = require('../../assets/images/faq.png')
+export const customer = require('../../assets/images/customer-service.png')
+export const android = require('../../assets/images/android-device.png')
+export const upArrow = require('../../assets/images/up-arrow.png')
+export const downArrow = require('../../assets/images/downArrow.png')
+
+
+
+
+
+
+
+
+
+
+
 

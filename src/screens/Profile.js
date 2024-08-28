@@ -1,14 +1,16 @@
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { accountImage, appLogo, editSymbol, exportDataImage, logoutImage, settingImage } from '../utils/images';
 import styles from '../styles/ProfileStyle';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, resetStore, updateName } from '../redux/actions';
 import { useNavigation } from '@react-navigation/native';
 import storage from '@react-native-async-storage/async-storage';
-import {LogoutDialog} from '../component/AlertDialog';
+import { LogoutDialog } from '../component/AlertDialog';
 
 const Profile = () => {
+
+
   // create new object of useDispacth hook
   const dispatch = useDispatch();
   const navigation = useNavigation()
@@ -23,11 +25,14 @@ const Profile = () => {
     if (isEditing) {
       // Dispatch the new name to Redux
       dispatch(updateName(newName));
+
     }
     // Toggle edit mode
     setIsEditing(!isEditing);
   };
-
+  useEffect(() => {
+    // Re-render the component when the name changes
+  }, [newName]);
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
@@ -42,7 +47,7 @@ const Profile = () => {
               onChangeText={setNewName}
             />
           ) : (
-            <Text style={styles.nameText}>{name}</Text>
+            <Text style={styles.nameText}>{newName}</Text>
           )}
         </View>
         <TouchableOpacity onPress={handleEdit}>
@@ -56,7 +61,7 @@ const Profile = () => {
           <Text style={styles.optionText}>Account</Text>
         </TouchableOpacity>
         <View style={styles.divider}></View>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("Settings")}>
           <Image source={settingImage} />
           <Text style={styles.optionText}>Settings</Text>
         </TouchableOpacity>

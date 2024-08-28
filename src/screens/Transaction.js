@@ -97,7 +97,9 @@ const Filterresult = ({ transactions, selectedMonth, selectedCategory }) => {
       hour: 'numeric',
       minute: 'numeric',
       hour12: true,
+      timeZone: 'Asia/Kolkata',
     });
+
   };
 
   return (
@@ -122,7 +124,7 @@ const Filterresult = ({ transactions, selectedMonth, selectedCategory }) => {
                 {item.transactionType === 'expense' ? '-' : '+'}
                 {item.amount}
               </Text>
-              <Text style={styles.time}>{formatTime(item.date)}</Text>
+              <Text style={styles.time}>{item.time}</Text>
             </View>
           </View>
         )}
