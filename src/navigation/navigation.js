@@ -11,6 +11,7 @@ import Profile from "../screens/Profile";
 import Transaction from "../screens/Transaction";
 import AddTransactionScreen from "../screens/AddTransactionScreen";
 import LoginScreen from "../screens/LoginScreen";
+import SettingScreen from "../screens/SettingScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomStack = createBottomTabNavigator();
@@ -21,6 +22,7 @@ const Navigation = () => {
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Settings" component={SettingScreen} options={{ headerShown: false }} />
                 <Stack.Screen name="BottomTab" component={BottomTab} options={{ headerShown: false }} />
             </Stack.Navigator>
         </NavigationContainer>

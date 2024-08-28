@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, FlatList, Image, Text } from 'react-native';
 import styles from '../styles/DasboardStyle';
-import { incomeImage, ruppeSymbol, expenseArrow } from '../utils/images';
+import { incomeImage, ruppeSymbol, expenseArrow, downArrow, upArrow, } from '../utils/images';
 
 /**
  * RecentTransaction Component
@@ -14,9 +14,9 @@ const RecentTransaction = ({ filteredTransactions }) => {
     const getCategoryImage = (category) => {
         switch (category) {
             case 'income':
-                return incomeImage;
+                return upArrow;
             case 'expense':
-                return expenseArrow;
+                return downArrow;
         }
     }
     const recentTransactions = filteredTransactions.reverse().slice(0, 3);

@@ -174,9 +174,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     transactionCategoryIcon: {
-        width: 38,
-        height: 41,
+        width: 30,
+        height: 30,
         marginRight: 10,
+        tintColor:"white",
+
     },
     transactionAmountText: {
         fontSize: 22,

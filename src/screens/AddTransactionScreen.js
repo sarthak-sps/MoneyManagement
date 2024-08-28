@@ -13,7 +13,7 @@ const AddTransactionScreen = () => {
     const [description, setDescription] = useState('');
     const [calendarOpen, setCalendarOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState('');
-    const [transactionType, setTransactionType] = useState('');
+    const [transactionType, setTransactionType] = useState('income');
     const [showDialog, setShowDialog] = useState(false)
     const [dialogMessage, setDialogMessage] = useState('')
 

@@ -61,7 +61,7 @@ const Profile = () => {
           <Text style={styles.optionText}>Account</Text>
         </TouchableOpacity>
         <View style={styles.divider}></View>
-        <TouchableOpacity style={styles.option}>
+        <TouchableOpacity style={styles.option} onPress={() => navigation.navigate("Settings")}>
           <Image source={settingImage} />
           <Text style={styles.optionText}>Settings</Text>
         </TouchableOpacity>
