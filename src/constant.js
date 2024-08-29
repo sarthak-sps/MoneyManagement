@@ -6,14 +6,16 @@ export const categoryList = [
     { label: 'Shopping', value: 'shopping' },
     { label: 'Salary', value: 'salary' },
     { label: 'Food', value: 'food' },
-    { label: 'Outing', value: 'outing' }
+    { label: 'Outing', value: 'outing' },
+    { label: 'movie', value: 'movie' }
 ];
 
 export const descriptionList = [
     { label: 'Buy some grocery', value: 'Buy some grocery' },
     { label: 'Arabian hut', value: 'Arabian hut' },
     { label: 'Salary for August', value: 'Salary for August' },
-    { label: 'Outing', value: 'outing' }
+    { label: 'Outing', value: 'outing' },
+    { label: 'movie', value: 'movie' }
 ];
 
 export const months = [
@@ -35,4 +37,4 @@ export const categories = [
     { label: 'All', value: '1' },
     { label: 'Income', value: '2' },
     { label: 'Expense', value: '3' },
-  ];
+];

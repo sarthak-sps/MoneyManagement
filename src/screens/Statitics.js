@@ -26,14 +26,24 @@ const Statitics = () => {
 
   // Calculate total income and total expenses
   const totalIncome = transactions
-    .filter(transaction => transaction.transactionType === 'income')
+    .filter(transaction => {
+      const transactionMonth = new Date(transaction.date).getMonth() + 1;
+      return transaction.transactionType === 'income' && transactionMonth === parseInt(selectedMonth);
+    })
     .reduce((sum, transaction) => sum + parseFloat(transaction.amount), 0);
 
   const totalExpense = transactions
-    .filter(transaction => transaction.transactionType === 'expense')
+    .filter(transaction => {
+      const transactionMonth = new Date(transaction.date).getMonth() + 1;
+      return transaction.transactionType === 'expense' && transactionMonth === parseInt(selectedMonth);
+    })
     .reduce((sum, transaction) => sum + parseFloat(transaction.amount), 0);
 
-  const data = [totalIncome, totalExpense, totalIncome - totalExpense];
+  const data = [
+    Math.max(totalIncome, 0),
+    Math.max(totalExpense, 0),
+    Math.max(totalIncome - totalExpense, 0),
+  ];
   const isDataEmpty = data.every(value => value === 0);
   return (
     <View style={styles.container}>

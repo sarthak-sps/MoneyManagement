@@ -18,8 +18,10 @@ import {
 import { widthPercentageToDP } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
-
+import i18next from './services/i18next';
+import {useTranslation} from 'react-i18next'
 const HomeScreen = () => {
+ 
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -44,6 +46,7 @@ const HomeText = () => {
       navigation.navigate('Login');
     }
   };
+  const {t} = useTranslation();
   return (
     <View style={styles.textContainer}>
       <View style={{ flexDirection: 'column', marginTop: 80 }}>
@@ -52,7 +55,7 @@ const HomeText = () => {
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleOnPress}>
-        <Text style={{ color: 'white' }}>Continue</Text>
+        <Text style={{ color: 'white' }}>{t('continue')}</Text>
       </TouchableOpacity>
     </View>
 
