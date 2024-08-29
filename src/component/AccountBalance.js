@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useTransition } from 'react';
 import { View, Text } from 'react-native';
 import styles from '../styles/DasboardStyle';
+import { useTranslation } from 'react-i18next';
 
 /**
  * AccountBalance Component
@@ -11,9 +12,10 @@ import styles from '../styles/DasboardStyle';
  * @param {number} props.totalExpense - The total expense amount.
  */
 const AccountBalance = ({ totalIncome, totalExpense }) => {
+    const { t } = useTranslation();
     return (
         <View style={styles.accountBalanceContainer}>
-            <Text style={styles.accountBalanceText}>Account Balance </Text>
+            <Text style={styles.accountBalanceText}>{t("account-balance")} </Text>
             <Text style={styles.accountBalanceAmount}>{totalIncome - totalExpense}</Text>
         </View>
     );

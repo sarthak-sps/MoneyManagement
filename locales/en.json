@@ -1,4 +1,180 @@
 {
-    "change-language":"Change language",
-    "continue":"Continue"
+    "change-language": "Change language",
+    "continue": "Continue",
+    "simple-solution": "Simple solution for \n your budget.",
+    "counter-income": "Counter and distribute the \n income correctly...",
+    "account-balance": "Account Balance",
+    "income": "Income",
+    "expense": "Expense",
+    "today": "Today",
+    "week": "Week",
+    "month": "Month",
+    "year": "Year",
+    "recent-transaction": "Recent transaction",
+    "view-all": "View all",
+    "home": "Home",
+    "transaction": "Transaction",
+    "statistics": "Statistics",
+    "profile": "Profile",
+    "how-much": "How much",
+    "enter-amount": "Enter Amount",
+    "description": "Description",
+    "category": "Category",
+    "pick-your-date": "Pick your date",
+    "shopping": "Shopping",
+    "salary": "Salary",
+    "food": "Food",
+    "outing": "Outing",
+    "movie": "Movie",
+    "buy-grocery": "Buy some grocery",
+    "arabian-hut": "Arabian hut",
+    "salary-august": "Salary for August",
+    "add-transaction": "Add transaction",
+    "financial-report": "Financial report",
+    "setting": "Setting",
+    "export-data": "Export data",
+    "logout": "Logout",
+    "change-password": "Change password",
+    "notification": "Notification",
+    "refer-friend": "Refer friend and business",
+    "faq": "FAQ",
+    "contact-us": "Contact us",
+    "terms-conditions": "Terms & conditions",
+    "days-of-week": [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ],
+    "months-of-year": [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+    ],
+    "tabdata": [
+        "Today",
+        "Week",
+        "Month",
+        "Year"
+    ],
+    "category-list": [
+        {
+            "label": "Shopping",
+            "value": "shopping"
+        },
+        {
+            "label": "Salary",
+            "value": "salary"
+        },
+        {
+            "label": "Food",
+            "value": "food"
+        },
+        {
+            "label": "Outing",
+            "value": "outing"
+        },
+        {
+            "label": "Movie",
+            "value": "movie"
+        }
+    ],
+    "description-list": [
+        {
+            "label": "Buy some grocery",
+            "value": "buy-grocery"
+        },
+        {
+            "label": "Arabian hut",
+            "value": "arabian-hut"
+        },
+        {
+            "label": "Salary for August",
+            "value": "salary-august"
+        },
+        {
+            "label": "Outing",
+            "value": "outing"
+        },
+        {
+            "label": "Movie",
+            "value": "movie"
+        }
+    ],
+    "months": [
+        {
+            "label": "January",
+            "value": "1"
+        },
+        {
+            "label": "February",
+            "value": "2"
+        },
+        {
+            "label": "March",
+            "value": "3"
+        },
+        {
+            "label": "April",
+            "value": "4"
+        },
+        {
+            "label": "May",
+            "value": "5"
+        },
+        {
+            "label": "June",
+            "value": "6"
+        },
+        {
+            "label": "July",
+            "value": "7"
+        },
+        {
+            "label": "August",
+            "value": "8"
+        },
+        {
+            "label": "September",
+            "value": "9"
+        },
+        {
+            "label": "October",
+            "value": "10"
+        },
+        {
+            "label": "November",
+            "value": "11"
+        },
+        {
+            "label": "December",
+            "value": "12"
+        }
+    ],
+    "categories": [
+        {
+            "label": "All",
+            "value": "1"
+        },
+        {
+            "label": "Income",
+            "value": "2"
+        },
+        {
+            "label": "Expense",
+            "value": "3"
+        }
+    ]
 }

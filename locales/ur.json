@@ -1,0 +1,181 @@
+{
+    "change-language": "زبان تبدیل کریں",
+    "continue": "جاری رکھیں",
+    "simple-solution": "آپ کے بجٹ کے لیے\n سادہ حل۔",
+    "counter-income": "آمدنی کو صحیح طریقے سے \n شمار کریں اور تقسیم کریں...",
+    "account-balance": "اکاؤنٹ بیلنس",
+    "income": "آمدنی",
+    "expense": "اخراجات",
+    "today": "آج",
+    "week": "ہفتہ",
+    "month": "مہینہ",
+    "year": "سال",
+    "recent-transaction": "حالیہ لین دین",
+    "view-all": "سب دیکھیں",
+    "home": "ہوم",
+    "transaction": "لین دین",
+    "statistics": "اعدادوشمار",
+    "profile": "پروفائل",
+    "how-much": "کتنا",
+    "enter-amount": "رقم درج کریں",
+    "description": "تفصیل",
+    "category": "زمرہ",
+    "pick-your-date": "اپنی تاریخ منتخب کریں",
+    "shopping": "خریداری",
+    "salary": "تنخواہ",
+    "food": "کھانا",
+    "outing": "تفریح",
+    "movie": "فلم",
+    "buy-grocery": "کچھ گروسری خریدیں",
+    "arabian-hut": "عربی جھونپڑی",
+    "salary-august": "اگست کی تنخواہ",
+    "add-transaction": "لین دین شامل کریں",
+    "financial-report": "مالی رپورٹ",
+    "account": "اکاؤنٹ",
+    "setting": "ترتیب",
+    "export-data": "ڈیٹا برآمد کریں",
+    "logout": "لاگ آؤٹ",
+    "change-password": "پاس ورڈ تبدیل کریں",
+    "notification": "نوٹیفکیشن",
+    "refer-friend": "دوست اور کاروبار کو حوالہ دیں",
+    "faq": "عمومی سوالات",
+    "contact-us": "ہم سے رابطہ کریں",
+    "terms-conditions": "شرائط و ضوابط",
+    "days-of-week": [
+        "اتوار",
+        "پیر",
+        "منگل",
+        "بدھ",
+        "جمعرات",
+        "جمعہ",
+        "ہفتہ"
+    ],
+    "months-of-year": [
+        "جنوری",
+        "فروری",
+        "مارچ",
+        "اپریل",
+        "مئی",
+        "جون",
+        "جولائی",
+        "اگست",
+        "ستمبر",
+        "اکتوبر",
+        "نومبر",
+        "دسمبر"
+    ],
+    "tabdata": [
+        "آج",
+        "ہفتہ",
+        "مہینہ",
+        "سال"
+    ],
+    "category-list": [
+        {
+            "label": "خریداری",
+            "value": "shopping"
+        },
+        {
+            "label": "تنخواہ",
+            "value": "salary"
+        },
+        {
+            "label": "کھانا",
+            "value": "food"
+        },
+        {
+            "label": "تفریح",
+            "value": "outing"
+        },
+        {
+            "label": "فلم",
+            "value": "movie"
+        }
+    ],
+    "description-list": [
+        {
+            "label": "کچھ گروسری خریدیں",
+            "value": "buy-grocery"
+        },
+        {
+            "label": "عربی جھونپڑی",
+            "value": "arabian-hut"
+        },
+        {
+            "label": "اگست کی تنخواہ",
+            "value": "salary-august"
+        },
+        {
+            "label": "تفریح",
+            "value": "outing"
+        },
+        {
+            "label": "فلم",
+            "value": "movie"
+        }
+    ],
+    "months": [
+        {
+            "label": "جنوری",
+            "value": "1"
+        },
+        {
+            "label": "فروری",
+            "value": "2"
+        },
+        {
+            "label": "مارچ",
+            "value": "3"
+        },
+        {
+            "label": "اپریل",
+            "value": "4"
+        },
+        {
+            "label": "مئی",
+            "value": "5"
+        },
+        {
+            "label": "جون",
+            "value": "6"
+        },
+        {
+            "label": "جولائی",
+            "value": "7"
+        },
+        {
+            "label": "اگست",
+            "value": "8"
+        },
+        {
+            "label": "ستمبر",
+            "value": "9"
+        },
+        {
+            "label": "اکتوبر",
+            "value": "10"
+        },
+        {
+            "label": "نومبر",
+            "value": "11"
+        },
+        {
+            "label": "دسمبر",
+            "value": "12"
+        }
+    ],
+    "categories": [
+        {
+            "label": "تمام",
+            "value": "1"
+        },
+        {
+            "label": "آمدنی",
+            "value": "2"
+        },
+        {
+            "label": "اخراجات",
+            "value": "3"
+        }
+    ]
+}

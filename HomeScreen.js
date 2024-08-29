@@ -50,8 +50,8 @@ const HomeText = () => {
   return (
     <View style={styles.textContainer}>
       <View style={{ flexDirection: 'column', marginTop: 80 }}>
-        <Text style={styles.mainText}>Simple solution for {'\n'}your budget.</Text>
-        <Text style={styles.subtext}>Counter and distribute the income {'\n'}correctly...</Text>
+        <Text style={styles.mainText}>{t('simple-solution')}</Text>
+        <Text style={styles.subtext}>{t('counter-income')}</Text>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleOnPress}>
