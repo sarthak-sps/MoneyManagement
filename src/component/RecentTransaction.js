@@ -27,7 +27,7 @@ const RecentTransaction = ({ filteredTransactions }) => {
                 renderItem={({ item }) => (
                     <View style={styles.transactionItem}>
                         <View style={styles.transactionItemLeft}>
-                            <Image source={getCategoryImage(item.transactionType)} style={styles.transactionCategoryIcon} />
+                            <Image source={getCategoryImage(item.transactionType)} style={styles.transactionCategoryIcon} tintColor={item.transactionType == 'income' ? "green" : "red"} />
                             <Image source={ruppeSymbol} />
                             <Text style={styles.transactionAmountText}>{`${item.amount}`}</Text>
                         </View>

@@ -1,4 +1,181 @@
 {
     "change-language": "भाषा बदलें",
-    "continue": "जारी रखें"
+    "continue": "जारी रखें",
+    "simple-solution": "आपके बजट के लिए\n सरल समाधान।",
+    "counter-income": "आय को सही ढंग से\n गिनें और वितरित करें...",
+    "account-balance": "खाता शेष",
+    "income": "आय",
+    "expense": "व्यय",
+    "today": "आज",
+    "week": "सप्ताह",
+    "month": "महीना",
+    "year": "साल",
+    "recent-transaction": "हाल का लेन-देन",
+    "view-all": "सभी देखें",
+    "home": "होम",
+    "transaction": "लेन-देन",
+    "statistics": "आंकड़े",
+    "profile": "प्रोफ़ाइल",
+    "how-much": "कितना",
+    "enter-amount": "राशि दर्ज करें",
+    "description": "विवरण",
+    "category": "श्रेणी",
+    "pick-your-date": "अपनी तारीख चुनें",
+    "shopping": "खरीदारी",
+    "salary": "वेतन",
+    "food": "भोजन",
+    "outing": "घूमना",
+    "movie": "फिल्म",
+    "buy-grocery": "कुछ किराने का सामान खरीदें",
+    "arabian-hut": "अरबियन हट",
+    "salary-august": "अगस्त के लिए वेतन",
+    "add-transaction": "लेन-देन जोड़ें",
+    "financial-report": "वित्तीय रिपोर्ट",
+    "account": "खाता",
+    "setting": "सेटिंग",
+    "export-data": "डेटा निर्यात करें",
+    "logout": "लॉग आउट",
+    "change-password": "पासवर्ड बदलें",
+    "notification": "सूचना",
+    "refer-friend": "मित्र और व्यवसाय को संदर्भित करें",
+    "faq": "सामान्य प्रश्न",
+    "contact-us": "संपर्क करें",
+    "terms-conditions": "नियम और शर्तें",
+    "days-of-week": [
+        "रविवार",
+        "सोमवार",
+        "मंगलवार",
+        "बुधवार",
+        "गुरुवार",
+        "शुक्रवार",
+        "शनिवार"
+    ],
+    "months-of-year": [
+        "जनवरी",
+        "फरवरी",
+        "मार्च",
+        "अप्रैल",
+        "मई",
+        "जून",
+        "जुलाई",
+        "अगस्त",
+        "सितंबर",
+        "अक्टूबर",
+        "नवंबर",
+        "दिसंबर"
+    ],
+    "tabdata": [
+        "आज",
+        "सप्ताह",
+        "महीना",
+        "साल"
+    ],
+    "category-list": [
+        {
+            "label": "खरीदारी",
+            "value": "shopping"
+        },
+        {
+            "label": "वेतन",
+            "value": "salary"
+        },
+        {
+            "label": "भोजन",
+            "value": "food"
+        },
+        {
+            "label": "घूमना",
+            "value": "outing"
+        },
+        {
+            "label": "फिल्म",
+            "value": "movie"
+        }
+    ],
+    "description-list": [
+        {
+            "label": "कुछ किराने का सामान खरीदें",
+            "value": "buy-grocery"
+        },
+        {
+            "label": "अरबियन हट",
+            "value": "arabian-hut"
+        },
+        {
+            "label": "अगस्त के लिए वेतन",
+            "value": "salary-august"
+        },
+        {
+            "label": "घूमना",
+            "value": "outing"
+        },
+        {
+            "label": "फिल्म",
+            "value": "movie"
+        }
+    ],
+    "months": [
+        {
+            "label": "जनवरी",
+            "value": "1"
+        },
+        {
+            "label": "फरवरी",
+            "value": "2"
+        },
+        {
+            "label": "मार्च",
+            "value": "3"
+        },
+        {
+            "label": "अप्रैल",
+            "value": "4"
+        },
+        {
+            "label": "मई",
+            "value": "5"
+        },
+        {
+            "label": "जून",
+            "value": "6"
+        },
+        {
+            "label": "जुलाई",
+            "value": "7"
+        },
+        {
+            "label": "अगस्त",
+            "value": "8"
+        },
+        {
+            "label": "सितंबर",
+            "value": "9"
+        },
+        {
+            "label": "अक्टूबर",
+            "value": "10"
+        },
+        {
+            "label": "नवंबर",
+            "value": "11"
+        },
+        {
+            "label": "दिसंबर",
+            "value": "12"
+        }
+    ],
+    "categories": [
+        {
+            "label": "सभी",
+            "value": "1"
+        },
+        {
+            "label": "आय",
+            "value": "2"
+        },
+        {
+            "label": "व्यय",
+            "value": "3"
+        }
+    ]
 }

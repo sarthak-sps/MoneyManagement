@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, Image } from 'react-native';
 import styles from '../styles/DasboardStyle';
 import { incomeImage, cameraImage } from '../utils/images';
+import { useTranslation } from 'react-i18next';
 
 /**
  * AccountIncomeStatus Component
@@ -11,6 +12,7 @@ import { incomeImage, cameraImage } from '../utils/images';
  * @param {number} props.totalIncome - The total income amount.
  */
 const AccountIncomeStatus = ({ totalIncome }) => {
+    const {t} = useTranslation()
     return (
         <View style={styles.accountIncomeContainer}>
             <View style={styles.accountStatusRow}>
@@ -19,7 +21,7 @@ const AccountIncomeStatus = ({ totalIncome }) => {
                     <Image source={cameraImage} />
                 </View>
                 <View style={styles.statusTextContainer}>
-                    <Text style={styles.statusLabelText}>Income</Text>
+                    <Text style={styles.statusLabelText}>{t('income')}</Text>
                     <Text style={styles.statusAmountText}>{totalIncome}</Text>
                 </View>
             </View>
