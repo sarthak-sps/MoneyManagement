@@ -1,6 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
-import TabView from './TabView';
+import  { CustomTabView } from './TabView';
 import styles from '../styles/DasboardStyle';
 
 /**
@@ -14,7 +14,7 @@ import styles from '../styles/DasboardStyle';
 const LowerComponent = ({ transactions=[] }) => {
     return (
         <View style={styles.lowerContainer}>
-            <TabView transactions={transactions} />
+            <CustomTabView transactions={transactions} />
         </View>
     )
 }

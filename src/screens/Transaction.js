@@ -4,6 +4,8 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/TransactionStyle';
 import { months, categories } from '../constant';
+import TopHeader from '../component/TopHeader';
+import { useNavigation } from '@react-navigation/native';
 
 const Transaction = () => {
   const transactions = useSelector(state => state.transactions.transactions);
@@ -13,9 +15,11 @@ const Transaction = () => {
   // Map selected values to labels
   const selectedMonth = months.find(month => month.value === selectedMonthValue)?.label || 'Select Month';
   const selectedCategory = categories.find(category => category.value === selectedCategoryValue)?.label || 'Select Category';
+  const navigation = useNavigation()
 
   return (
     <View style={styles.container}>
+      <TopHeader navigation={navigation} title={"Transactions"} />
       <FilterComponent
         selectedMonth={selectedMonth}
         selectedCategory={selectedCategory}
@@ -47,6 +51,7 @@ const FilterComponent = ({ selectedMonth, selectedCategory }) => {
         data={months}
         labelField="label"
         placeholder='Month'
+        selectedTextStyle={styles.selectedTextStyle}
         onChange={item => handleMonthChange(item)}
         value={months.find(month => month.label === selectedMonth)?.value}
         valueField="value"
@@ -61,6 +66,7 @@ const FilterComponent = ({ selectedMonth, selectedCategory }) => {
         data={categories}
         labelField="label"
         placeholder='All'
+        selectedTextStyle={styles.selectedTextStyle}
         onChange={handleCategoryChange}
         value={categories.find(category => category.label === selectedCategory)?.value}
         valueField="value"
@@ -71,6 +77,7 @@ const FilterComponent = ({ selectedMonth, selectedCategory }) => {
         style={styles.dropdown}
       />
     </View>
+
   );
 };
 
@@ -111,7 +118,7 @@ const Filterresult = ({ transactions, selectedMonth, selectedCategory }) => {
         renderItem={({ item }) => (
           <View style={styles.transactionContainer}>
             <View style={styles.transactionDetails}>
-              <Text style={styles.category}>{item.category}</Text>
+              <Text style={styles.category}>{item.category.charAt(0).toUpperCase() + item.category.slice(1)}</Text>
               <Text style={styles.description}>{item.description}</Text>
             </View>
             <View style={styles.transactionAmount}>
@@ -124,7 +131,7 @@ const Filterresult = ({ transactions, selectedMonth, selectedCategory }) => {
                 {item.transactionType === 'expense' ? '-' : '+'}
                 {item.amount}
               </Text>
-              <Text style={styles.time}>{item.time}</Text>
+              <Text style={styles.descriptionAndTime}>{item.time}</Text>
             </View>
           </View>
         )}

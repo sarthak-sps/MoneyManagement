@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#7F3DFF',
         marginTop: 30,
         alignItems: 'center',
+        marginBottom:100
     },
     continueButtonText: {
         fontSize: 18,

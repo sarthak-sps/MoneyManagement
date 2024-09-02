@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 16,
         paddingVertical: 8,
         flexDirection: 'row',
-        marginHorizontal: 10,
+        marginStart: 20,
         borderRadius: 40,
         borderWidth: 1,
         alignItems: 'center',
@@ -27,8 +27,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         height: 90,
-        backgroundColor: 'white',
-        margin: 10,
+        backgroundColor: '#FCFCFC',
+        marginHorizontal: 20,
+        marginTop:30,
         borderRadius: 24,
     },
     transactionDetails: {
@@ -37,11 +38,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     category: {
-        fontSize: 22,
-    },
-    description: {
         fontSize: 16,
-        fontWeight: '600',
+        fontWeight: "500",
+        fontFamily: "Inter",
+        color: "#292B2D"
+    },
+    descriptionAndTime: {
+        fontSize: 13,
+        fontWeight: '500',
+        color: "#91919F"
     },
     transactionAmount: {
         flexDirection: 'column',
@@ -49,12 +54,14 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     amount: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: '600',
     },
-    time: {
-        fontSize: 13,
-        fontWeight: '600',
-    },
+    selectedTextStyle: {
+        fontSize: 14,
+        color: "black",
+        fontFamily: "Inter",
+        fontWeight: '500'
+    }
 });
 export default styles;
