@@ -36,15 +36,15 @@ const UpperComponent = ({ totalIncome, totalExpense }) => {
         <View style={styles.upperContainer}>
             <View style={styles.headerContainer}>
                 <View>
-                    <Text style={styles.headerLeftText}>{currentDay} {currentDateNumber} </Text>
-                    <Text>{currentMonth}</Text>
+                    <Text style={styles.headerText}>{currentDay} {currentDateNumber} </Text>
+                    <Text style={styles.headerText}>{currentMonth}</Text>
                 </View>
 
                 <View style={styles.profileContainer}>
                     <TouchableOpacity style={styles.imageWrapper} onPress={() => navigation.navigate('Profile')}>
                         <Image style={styles.profileImage} source={appLogo} />
                     </TouchableOpacity>
-                    <Text style={styles.profileName}>{name}</Text>
+                    <Text style={styles.headerText}>{name}</Text>
                 </View>
             </View>
             <View style={styles.divider} />

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -12,6 +12,7 @@ import Transaction from "../screens/Transaction";
 import AddTransactionScreen from "../screens/AddTransactionScreen";
 import LoginScreen from "../screens/LoginScreen";
 import SettingScreen from "../screens/SettingScreen";
+import { Text } from "react-native-svg";
 
 const Stack = createNativeStackNavigator();
 const BottomStack = createBottomTabNavigator();
@@ -33,11 +34,16 @@ const BottomTab = ({ navigation, route }) => {
     const routeName = route.state
         ? route.state.routes[route.state.index].name
         : route.params?.screen || 'DashBoard'; // Default route
-
+    const [plusIconColor, setPlusIconColor] = useState("#A89696")
+    const handleColor = (focused) => {
+        if (focused && routeName != 'AddTransaction') {
+            setPlusIconColor("#FFF6E5")
+        }
+    }
     return (
         <BottomStack.Navigator
             screenOptions={({ route }) => ({
-                tabBarStyle: routeName === 'AddTransaction' ? { display: 'none' } : {},
+                tabBarStyle: { ...styles.outerContainer },
             })}
         >
             <BottomStack.Screen
@@ -45,30 +51,36 @@ const BottomTab = ({ navigation, route }) => {
                 component={DashBoardScreen}
                 options={{
                     headerShown: false,
-                    tabBarIcon: () => (
-                        <Image source={require('../../assets/images/home.png')} style={styles.icon} />
+                    tabBarIcon: ({ focused }) => (
+                        < View >
+                            <Image source={require('../../assets/images/home.png')} style={[styles.icon, { tintColor: focused ? "#7F3DFF" : "#C6C6C6" }]} />
+                            <Text style={{ color: focused ? "#7F3DFF" : "#C6C6C6" }}></Text>
+                        </View>
                     ),
-                    tabBarLabel: 'Home',
                 }}
             />
-            <BottomStack.Screen
+            < BottomStack.Screen
                 name="Transaction"
                 component={Transaction}
                 options={{
-                    tabBarIcon: () => (
-                        <Image source={require('../../assets/images/transaction.png')} style={styles.icon} />
+                    tabBarIcon: ({ focused }) => (
+                        <View>
+                            <Image source={require('../../assets/images/transaction.png')} style={[styles.icon, { tintColor: focused ? "#7F3DFF" : "#C6C6C6" }]} />
+                            <Text style={{ color: focused ? "#7F3DFF" : "#C6C6C6" }}></Text>
+                        </View>
+
                     ),
-                    tabBarLabel: 'Transaction',
+                    headerShown: false,
                 }}
             />
-            <BottomStack.Screen
+            < BottomStack.Screen
                 name="AddTransaction"
                 component={AddTransactionScreen}
                 options={{
                     headerShown: true,
                     headerTitle: 'Add Transaction',
                     tabBarIcon: ({ focused }) => (
-                        <View style={styles.addTransactionOuter}>
+                        <View style={[styles.addTransactionOuter, { backgroundColor: focused ? '#FFF6E5' : "#A89696" }]}>
                             <View style={styles.addTransactionInner}>
                                 <Image
                                     source={require('../../assets/images/add.png')}
@@ -77,43 +89,50 @@ const BottomTab = ({ navigation, route }) => {
                             </View>
                         </View>
                     ),
-                    tabBarLabel: '',
+                    tabBarLabel: ""
                 }}
+
             />
-            <BottomStack.Screen
-                name="Stats"
+            < BottomStack.Screen
+                name="Statitics"
                 component={Statitics}
                 options={{
                     headerShown: true,
                     headerTitle: 'Financial Report',
-                    tabBarIcon: () => (
-                        <Image source={require('../../assets/images/pie-chart.png')} style={styles.icon} />
+                    tabBarIcon: ({ focused }) => (
+                        <View>
+                            <Image source={require('../../assets/images/pie-chart.png')} style={[styles.icon, { tintColor: focused ? "#7F3DFF" : "#C6C6C6" }]} />
+                            <Text style={{ color: focused ? "#7F3DFF" : "#C6C6C6" }}></Text>
+                        </View>
+
                     ),
-                    tabBarLabel: 'Statistics',
+
                 }}
             />
-            <BottomStack.Screen
+            < BottomStack.Screen
                 name="Profile"
                 component={Profile}
                 options={{
                     headerShown: false,
-                    tabBarIcon: () => (
-                        <Image source={require('../../assets/images/user.png')} style={styles.icon} />
+                    tabBarIcon: ({ focused }) => (
+                        <View>
+                            <Image source={require('../../assets/images/user.png')} style={[styles.icon, { tintColor: focused ? "#7F3DFF" : "#C6C6C6" }]} />
+                            <Text style={{ color: focused ? "#7F3DFF" : "#C6C6C6" }}></Text>
+                        </View>
+
                     ),
-                    tabBarLabel: 'Profile',
                 }}
             />
-        </BottomStack.Navigator>
+        </BottomStack.Navigator >
     );
 };
 
 const styles = StyleSheet.create({
     icon: {
-        width: 20,
-        height: 20,
+        width: 31,
+        height: 34,
     },
     addTransactionOuter: {
-        backgroundColor: 'transparent',
         width: 70,
         height: 70,
         borderRadius: 50,
@@ -122,15 +141,23 @@ const styles = StyleSheet.create({
     },
     addTransactionInner: {
         backgroundColor: '#7F3DFF',
-        width: 50,
-        height: 50,
-        borderRadius: 50,
+        width: 56,
+        height: 56,
+        borderRadius: 56,
         justifyContent: 'center',
     },
     addIcon: {
         width: 25,
         height: 25,
         alignSelf: 'center',
+    },
+    outerContainer: {
+        position: 'absolute',
+        backgroundColor: '#FFFFFF',
+        elevation: 20,
+        height: 60,
+        borderTopEndRadius: 10,
+        borderTopLeftRadius: 10,
     },
 });
 

@@ -19,9 +19,9 @@ import { widthPercentageToDP } from 'react-native-responsive-screen';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import i18next from './services/i18next';
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from 'react-i18next'
 const HomeScreen = () => {
- 
+
   useEffect(() => {
     SplashScreen.hide();
   }, []);
@@ -46,16 +46,16 @@ const HomeText = () => {
       navigation.navigate('Login');
     }
   };
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <View style={styles.textContainer}>
-      <View style={{ flexDirection: 'column', marginTop: 80 }}>
+      <View style={{ flexDirection: 'column', }}>
         <Text style={styles.mainText}>{t('simple-solution')}</Text>
         <Text style={styles.subtext}>{t('counter-income')}</Text>
       </View>
 
       <TouchableOpacity style={styles.button} onPress={handleOnPress}>
-        <Text style={{ color: 'white' }}>{t('continue')}</Text>
+        <Text style={styles.buttonText}>{t('continue')}</Text>
       </TouchableOpacity>
     </View>
 
@@ -75,34 +75,36 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 0.5,
     flexDirection: 'column',
-    margin: 20,
-    alignContent: 'center'
-
+    marginHorizontal: 30,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   mainText: {
     fontSize: 30,
     color: 'black',
     fontWeight: '700',
-    marginBottom: 30,
-    textAlign: 'center',
-
-
+    fontFamily: 'Inter'
   },
   subtext: {
     fontSize: 16,
-    marginVertical: 10,
+    marginVertical: 20,
     color: 'black',
-    textAlign: 'center',
   },
   button: {
     backgroundColor: 'black',
     height: 42,
-    width: 194,
+    width: "50%",
     borderRadius: 5,
+    elevation: 5,
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
-    marginTop: 80,
+    marginBottom: 30,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: "400",
+    fontSize: 15,
   }
 })
 export default HomeScreen;

@@ -19,6 +19,7 @@ export const customer = require('../../assets/images/customer-service.png')
 export const android = require('../../assets/images/android-device.png')
 export const upArrow = require('../../assets/images/up-arrow.png')
 export const downArrow = require('../../assets/images/downArrow.png')
+export const backButton = require('../../assets/images/back.png')
 
 
 
